@@ -1,0 +1,3575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07120d">
+
+<title>EliteOdds | Football Predictions & VIP Registration</title>
+
+<meta name="description"
+content="EliteOdds provides football prediction information and VIP membership registration. Select your country and contact the registration team through WhatsApp.">
+
+<meta property="og:title" content="EliteOdds | Football Predictions">
+<meta property="og:description" content="Football prediction information and VIP membership registration.">
+<meta property="og:type" content="website">
+
+<style>
+/* =========================================================
+   ELITEODDS ADVANCED SINGLE-PAGE WEBSITE
+   No external libraries required
+========================================================= */
+
+:root{
+    --bg:#06100b;
+    --bg2:#09170f;
+    --card:#0d1d14;
+    --card2:#11261a;
+    --green:#00c853;
+    --green2:#19e66b;
+    --green3:#8cffb5;
+    --text:#f4fff7;
+    --muted:#9bb2a3;
+    --border:rgba(255,255,255,.09);
+    --danger:#ff6464;
+    --warning:#ffc857;
+    --shadow:0 20px 60px rgba(0,0,0,.35);
+    --radius:22px;
+    --max:1180px;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    background:
+        radial-gradient(circle at 20% 10%,rgba(0,200,83,.12),transparent 30%),
+        radial-gradient(circle at 90% 20%,rgba(0,200,83,.08),transparent 25%),
+        var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+body.light{
+    --bg:#f4f8f5;
+    --bg2:#ffffff;
+    --card:#ffffff;
+    --card2:#eef8f1;
+    --text:#102117;
+    --muted:#607065;
+    --border:rgba(0,0,0,.09);
+    --shadow:0 20px 50px rgba(20,60,35,.12);
+}
+
+/* ---------- GLOBAL ---------- */
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.container{
+    width:min(var(--max),calc(100% - 32px));
+    margin:auto;
+}
+
+.section{
+    padding:95px 0;
+    position:relative;
+}
+
+.section-title{
+    max-width:720px;
+    margin:0 auto 50px;
+    text-align:center;
+}
+
+.section-title .eyebrow{
+    margin-bottom:12px;
+}
+
+.section-title h2{
+    font-size:clamp(30px,5vw,48px);
+    line-height:1.1;
+    margin-bottom:15px;
+}
+
+.section-title p{
+    color:var(--muted);
+    font-size:16px;
+}
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 12px;
+    border:1px solid rgba(0,200,83,.25);
+    background:rgba(0,200,83,.08);
+    color:var(--green3);
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.btn{
+    border:0;
+    border-radius:13px;
+    padding:13px 19px;
+    font-weight:800;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    transition:.25s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    background:linear-gradient(135deg,var(--green),var(--green2));
+    color:#001a0a;
+    box-shadow:0 12px 35px rgba(0,200,83,.2);
+}
+
+.btn-secondary{
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--border);
+    color:var(--text);
+}
+
+body.light .btn-secondary{
+    background:#fff;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:5px 9px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:800;
+}
+
+.badge-green{
+    color:#8dffb7;
+    background:rgba(0,200,83,.1);
+    border:1px solid rgba(0,200,83,.18);
+}
+
+.badge-yellow{
+    color:#ffe49a;
+    background:rgba(255,200,87,.09);
+    border:1px solid rgba(255,200,87,.2);
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* ---------- TOP BAR ---------- */
+
+.topbar{
+    background:#020805;
+    color:#c7d9cd;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    font-size:12px;
+}
+
+.topbar-inner{
+    min-height:36px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#00e65b;
+    box-shadow:0 0 12px #00e65b;
+}
+
+.topbar-right{
+    color:#7f9587;
+}
+
+/* ---------- HEADER ---------- */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(18px);
+    background:rgba(6,16,11,.83);
+    border-bottom:1px solid var(--border);
+}
+
+body.light header{
+    background:rgba(255,255,255,.88);
+}
+
+.nav{
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:20px;
+    font-weight:950;
+    letter-spacing:-.5px;
+}
+
+.logo-ball{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#00c853,#8cffb5);
+    color:#001d0b;
+    box-shadow:0 10px 30px rgba(0,200,83,.2);
+}
+
+.logo span{
+    color:var(--green2);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+.nav-links a{
+    padding:9px 12px;
+    color:var(--muted);
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+    color:var(--text);
+    background:rgba(0,200,83,.08);
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.icon-btn{
+    width:40px;
+    height:40px;
+    border-radius:11px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.04);
+    color:var(--text);
+    display:grid;
+    place-items:center;
+}
+
+.menu-btn{
+    display:none;
+}
+
+/* ---------- PROGRESS ---------- */
+
+.progress{
+    position:fixed;
+    top:0;
+    left:0;
+    height:3px;
+    width:0%;
+    background:linear-gradient(90deg,#00c853,#8cffb5);
+    z-index:2000;
+}
+
+/* ---------- HERO ---------- */
+
+.hero{
+    min-height:calc(100vh - 108px);
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-grid{
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:50px 50px;
+    mask-image:linear-gradient(to bottom,black,transparent);
+    pointer-events:none;
+}
+
+.hero-orb{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(0,200,83,.08);
+    filter:blur(80px);
+    pointer-events:none;
+}
+
+.orb-one{
+    top:-200px;
+    left:-180px;
+}
+
+.orb-two{
+    right:-250px;
+    bottom:-250px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:60px;
+    align-items:center;
+}
+
+.hero-copy h1{
+    font-size:clamp(43px,7vw,76px);
+    line-height:.98;
+    letter-spacing:-3px;
+    margin:20px 0;
+}
+
+.hero-copy h1 span{
+    color:var(--green2);
+}
+
+.hero-copy>p{
+    max-width:650px;
+    color:var(--muted);
+    font-size:17px;
+}
+
+.hero-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:30px;
+}
+
+.hero-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-top:30px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.hero-meta strong{
+    color:var(--text);
+}
+
+/* ---------- HERO CARD ---------- */
+
+.ticket{
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025)),
+        var(--card);
+    border:1px solid var(--border);
+    border-radius:26px;
+    box-shadow:var(--shadow);
+    padding:22px;
+    transform:rotate(1deg);
+    position:relative;
+    overflow:hidden;
+}
+
+.ticket::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(0,200,83,.12);
+    filter:blur(45px);
+    top:-80px;
+    right:-60px;
+}
+
+.ticket-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.ticket-title{
+    font-weight:900;
+}
+
+.sample-label{
+    color:var(--warning);
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.7px;
+}
+
+.pick{
+    padding:14px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.035);
+    border-radius:16px;
+    margin-top:10px;
+}
+
+.pick-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:6px;
+}
+
+.pick-match{
+    font-weight:800;
+    font-size:14px;
+}
+
+.pick-bottom{
+    display:flex;
+    justify-content:space-between;
+    margin-top:9px;
+    font-size:12px;
+}
+
+.score{
+    color:var(--green2);
+    font-weight:950;
+}
+
+.ticket-footer{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* ---------- STATS ---------- */
+
+.stats{
+    margin-top:-35px;
+    position:relative;
+    z-index:5;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.stat-card{
+    padding:20px;
+    border:1px solid var(--border);
+    background:var(--card);
+    border-radius:17px;
+    text-align:center;
+}
+
+.stat-number{
+    font-size:27px;
+    font-weight:950;
+    color:var(--green2);
+}
+
+.stat-label{
+    font-size:11px;
+    color:var(--muted);
+}
+
+/* ---------- FEATURES ---------- */
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.feature{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:27px;
+    border-radius:var(--radius);
+    transition:.3s;
+}
+
+.feature:hover{
+    transform:translateY(-6px);
+    border-color:rgba(0,200,83,.25);
+}
+
+.feature-icon{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    display:grid;
+    place-items:center;
+    background:rgba(0,200,83,.09);
+    margin-bottom:20px;
+    font-size:23px;
+}
+
+.feature h3{
+    margin-bottom:9px;
+}
+
+.feature p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ---------- PREDICTIONS ---------- */
+
+.predictions{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.prediction-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+}
+
+.prediction-header{
+    padding:14px 16px;
+    background:rgba(0,200,83,.06);
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:var(--muted);
+}
+
+.prediction-body{
+    padding:18px;
+}
+
+.league{
+    color:var(--green3);
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.teams{
+    font-weight:900;
+    font-size:16px;
+}
+
+.prediction-row{
+    display:flex;
+    justify-content:space-between;
+    margin-top:18px;
+    padding-top:15px;
+    border-top:1px solid var(--border);
+    font-size:12px;
+}
+
+.prediction-row span:first-child{
+    color:var(--muted);
+}
+
+.demo-note{
+    margin-top:25px;
+    padding:13px 16px;
+    border-radius:13px;
+    border:1px solid rgba(255,200,87,.18);
+    background:rgba(255,200,87,.05);
+    color:#e8d9a5;
+    font-size:12px;
+}
+
+/* ---------- PROCESS ---------- */
+
+.process{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    counter-reset:step;
+}
+
+.step{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+    position:relative;
+}
+
+.step-number{
+    width:37px;
+    height:37px;
+    border-radius:50%;
+    background:rgba(0,200,83,.12);
+    color:var(--green2);
+    display:grid;
+    place-items:center;
+    font-weight:950;
+    margin-bottom:18px;
+}
+
+.step h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.step p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* ---------- MEMBERSHIP ---------- */
+
+.membership{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:25px;
+    align-items:stretch;
+}
+
+.membership-main{
+    background:
+        linear-gradient(145deg,rgba(0,200,83,.13),transparent),
+        var(--card);
+    border:1px solid rgba(0,200,83,.2);
+    border-radius:26px;
+    padding:32px;
+}
+
+.price{
+    font-size:48px;
+    font-weight:950;
+    margin:15px 0 5px;
+}
+
+.price small{
+    font-size:14px;
+    color:var(--muted);
+    font-weight:600;
+}
+
+.membership-main p{
+    color:var(--muted);
+}
+
+.benefits{
+    margin-top:25px;
+    display:grid;
+    gap:10px;
+}
+
+.benefit{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:13px;
+}
+
+.check{
+    color:var(--green2);
+    font-weight:950;
+}
+
+.membership-countries{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:26px;
+    padding:25px;
+}
+
+.country-search{
+    width:100%;
+    padding:13px 15px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    border-radius:12px;
+    outline:none;
+    color:var(--text);
+    margin:15px 0;
+}
+
+.country-search:focus{
+    border-color:rgba(0,200,83,.5);
+}
+
+.country-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    max-height:420px;
+    overflow:auto;
+    padding-right:4px;
+}
+
+.country{
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.025);
+    padding:14px;
+    border-radius:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    transition:.2s;
+}
+
+.country:hover,
+.country.selected{
+    border-color:rgba(0,200,83,.4);
+    background:rgba(0,200,83,.07);
+}
+
+.country-left{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.flag{
+    font-size:22px;
+}
+
+.country-name{
+    font-weight:800;
+    font-size:13px;
+}
+
+.region{
+    display:block;
+    font-size:9px;
+    color:var(--muted);
+    margin-top:2px;
+}
+
+.country-price{
+    color:var(--green2);
+    font-weight:900;
+    font-size:12px;
+    white-space:nowrap;
+}
+
+/* ---------- REGISTRATION ---------- */
+
+.registration-box{
+    max-width:850px;
+    margin:auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:30px;
+    box-shadow:var(--shadow);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    font-size:12px;
+    font-weight:800;
+    color:var(--muted);
+}
+
+.field input,
+.field select{
+    width:100%;
+    padding:14px;
+    color:var(--text);
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    border-radius:12px;
+    outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+    border-color:rgba(0,200,83,.5);
+}
+
+.form-summary{
+    margin-top:20px;
+    padding:17px;
+    background:rgba(0,200,83,.06);
+    border:1px solid rgba(0,200,83,.14);
+    border-radius:15px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    font-size:13px;
+    margin:5px 0;
+}
+
+.summary-row span:first-child{
+    color:var(--muted);
+}
+
+.form-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:20px;
+}
+
+.form-note{
+    margin-top:13px;
+    font-size:11px;
+    color:var(--muted);
+}
+
+/* ---------- FAQ ---------- */
+
+.faq-wrap{
+    max-width:850px;
+    margin:auto;
+}
+
+.faq-search{
+    margin-bottom:20px;
+}
+
+.faq{
+    border:1px solid var(--border);
+    background:var(--card);
+    border-radius:15px;
+    margin-bottom:10px;
+    overflow:hidden;
+}
+
+.faq-question{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:var(--text);
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    text-align:left;
+    font-weight:800;
+}
+
+.faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+}
+
+.faq-answer-inner{
+    padding:0 18px 18px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.faq.open .faq-answer{
+    max-height:300px;
+}
+
+.faq-symbol{
+    color:var(--green2);
+    font-size:20px;
+}
+
+/* ---------- CONTACT ---------- */
+
+.contact{
+    background:
+        radial-gradient(circle at 50% 0%,rgba(0,200,83,.12),transparent 45%),
+        var(--bg2);
+}
+
+.contact-card{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    padding:55px 25px;
+    border:1px solid var(--border);
+    border-radius:28px;
+    background:var(--card);
+}
+
+.contact-card h2{
+    font-size:clamp(30px,5vw,48px);
+    margin:15px 0;
+}
+
+.contact-card p{
+    color:var(--muted);
+    max-width:650px;
+    margin:0 auto;
+}
+
+.whatsapp-number{
+    display:inline-flex;
+    margin:20px 0;
+    padding:10px 15px;
+    border-radius:10px;
+    background:rgba(0,200,83,.08);
+    color:var(--green3);
+    font-weight:900;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer{
+    border-top:1px solid var(--border);
+    padding:35px 0 90px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr .8fr .8fr;
+    gap:30px;
+}
+
+.footer-brand p{
+    max-width:430px;
+    color:var(--muted);
+    font-size:13px;
+    margin-top:12px;
+}
+
+.footer-col h4{
+    margin-bottom:12px;
+}
+
+.footer-col a{
+    display:block;
+    color:var(--muted);
+    font-size:13px;
+    margin:8px 0;
+}
+
+.footer-col a:hover{
+    color:var(--green2);
+}
+
+.copyright{
+    margin-top:35px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+
+.whatsapp-float{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:57px;
+    height:57px;
+    border-radius:50%;
+    background:#25d366;
+    color:white;
+    display:grid;
+    place-items:center;
+    font-size:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
+    z-index:900;
+    transition:.25s;
+}
+
+.whatsapp-float:hover{
+    transform:scale(1.08);
+}
+
+.back-top{
+    position:fixed;
+    right:20px;
+    bottom:90px;
+    width:42px;
+    height:42px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--card);
+    color:var(--text);
+    display:none;
+    place-items:center;
+    z-index:900;
+}
+
+/* ---------- MOBILE BAR ---------- */
+
+.mobile-action{
+    display:none;
+}
+
+/* ---------- MODAL ---------- */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(8px);
+    display:none;
+    place-items:center;
+    padding:20px;
+    z-index:3000;
+}
+
+.modal.show{
+    display:grid;
+}
+
+.modal-card{
+    width:min(500px,100%);
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:27px;
+    box-shadow:var(--shadow);
+    position:relative;
+    animation:modalIn .25s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.modal-close{
+    position:absolute;
+    top:15px;
+    right:15px;
+}
+
+.modal-card h3{
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.modal-card>p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.selected-info{
+    margin:20px 0;
+    padding:18px;
+    border-radius:16px;
+    background:rgba(0,200,83,.07);
+    border:1px solid rgba(0,200,83,.15);
+}
+
+.selected-info strong{
+    display:block;
+    font-size:22px;
+    color:var(--green2);
+}
+
+/* ---------- TOAST ---------- */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,30px);
+    background:#101b14;
+    color:white;
+    padding:12px 17px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+    opacity:0;
+    pointer-events:none;
+    z-index:5000;
+    transition:.25s;
+    font-size:13px;
+    box-shadow:var(--shadow);
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* ---------- REVEAL ---------- */
+
+.reveal{
+    opacity:0;
+    transform:translateY(25px);
+    transition:opacity .7s ease,transform .7s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:none;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media(max-width:900px){
+
+    .nav-links{
+        position:fixed;
+        top:108px;
+        left:16px;
+        right:16px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        background:var(--card);
+        border:1px solid var(--border);
+        padding:10px;
+        border-radius:17px;
+        box-shadow:var(--shadow);
+    }
+
+    .nav-links.show{
+        display:flex;
+    }
+
+    .nav-links a{
+        padding:13px;
+    }
+
+    .menu-btn{
+        display:grid;
+    }
+
+    .nav-actions .desktop-register{
+        display:none;
+    }
+
+    .hero-content{
+        grid-template-columns:1fr;
+        gap:45px;
+    }
+
+    .ticket{
+        max-width:600px;
+        width:100%;
+        margin:auto;
+    }
+
+    .feature-grid,
+    .predictions{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .process{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .membership{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:620px){
+
+    .container{
+        width:min(var(--max),calc(100% - 22px));
+    }
+
+    .section{
+        padding:70px 0;
+    }
+
+    .topbar-right{
+        display:none;
+    }
+
+    .hero{
+        min-height:auto;
+        padding:70px 0 60px;
+    }
+
+    .hero-copy h1{
+        letter-spacing:-2px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .hero-buttons .btn{
+        width:100%;
+    }
+
+    .stats{
+        margin-top:0;
+    }
+
+    .feature-grid,
+    .predictions,
+    .process,
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .country-list{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .registration-box{
+        padding:20px;
+    }
+
+    .mobile-action{
+        position:fixed;
+        left:10px;
+        right:10px;
+        bottom:10px;
+        display:flex;
+        gap:8px;
+        z-index:800;
+        padding:7px;
+        border-radius:15px;
+        background:rgba(7,15,10,.92);
+        border:1px solid rgba(255,255,255,.1);
+        backdrop-filter:blur(15px);
+    }
+
+    body.light .mobile-action{
+        background:rgba(255,255,255,.92);
+    }
+
+    .mobile-action .btn{
+        flex:1;
+        padding:11px 8px;
+        font-size:12px;
+    }
+
+    .whatsapp-float{
+        display:none;
+    }
+
+    .back-top{
+        bottom:72px;
+        right:15px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        scroll-behavior:auto!important;
+        animation:none!important;
+        transition:none!important;
+    }
+
+    .reveal{
+        opacity:1;
+        transform:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- TOP STATUS -->
+<div class="topbar">
+    <div class="container topbar-inner">
+        <div class="status">
+            <span class="status-dot"></span>
+            <span>EliteOdds information portal</span>
+        </div>
+
+        <div class="topbar-right">
+            <span id="todayDate">Loading date...</span>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="container nav">
+
+        <a href="#home" class="logo">
+            <span class="logo-ball">⚽</span>
+            <span>Elite<span>Odds</span></span>
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="#predictions">Examples</a>
+            <a href="#membership">Membership</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+
+            <button class="icon-btn" id="themeBtn" aria-label="Change theme">
+                ☀️
+            </button>
+
+            <a href="#membership" class="btn btn-primary desktop-register">
+                Register
+            </a>
+
+            <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">
+                ☰
+            </button>
+
+        </div>
+    </div>
+</header>
+
+
+<!-- HERO -->
+<main>
+
+<section class="hero" id="home">
+
+    <div class="hero-grid"></div>
+    <div class="hero-orb orb-one"></div>
+    <div class="hero-orb orb-two"></div>
+
+    <div class="container hero-content">
+
+        <div class="hero-copy reveal">
+
+            <span class="eyebrow">
+                ⚡ Football prediction information
+            </span>
+
+            <h1>
+                Smarter football
+                <span>selection.</span>
+            </h1>
+
+            <p>
+                Explore football prediction information, example selections
+                and VIP membership registration through one simple platform.
+                Choose your country and contact the registration team directly.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#membership" class="btn btn-primary">
+                    🚀 Choose Membership
+                </a>
+
+                <a href="#predictions" class="btn btn-secondary">
+                    ⚽ View Examples
+                </a>
+
+            </div>
+
+            <div class="hero-meta">
+
+                <span>🌍 <strong>9</strong> countries</span>
+                <span>📱 <strong>WhatsApp</strong> registration</span>
+                <span>🔒 Simple registration</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SAMPLE TICKET -->
+        <div class="ticket reveal">
+
+            <div class="ticket-head">
+
+                <div>
+                    <div class="sample-label">SAMPLE / DEMO</div>
+                    <div class="ticket-title">
+                        Example Selection
+                    </div>
+                </div>
+
+                <span class="badge badge-green">
+                    ● Example
+                </span>
+
+            </div>
+
+            <div class="pick">
+
+                <div class="pick-top">
+                    <span>Example League</span>
+                    <span>Match</span>
+                </div>
+
+                <div class="pick-match">
+                    Manchester City vs Example FC
+                </div>
+
+                <div class="pick-bottom">
+                    <span>Correct Score</span>
+                    <span class="score">2 - 1</span>
+                </div>
+
+            </div>
+
+            <div class="pick">
+
+                <div class="pick-top">
+                    <span>Example League</span>
+                    <span>Match</span>
+                </div>
+
+                <div class="pick-match">
+                    Barcelona vs Example United
+                </div>
+
+                <div class="pick-bottom">
+                    <span>Correct Score</span>
+                    <span class="score">2 - 0</span>
+                </div>
+
+            </div>
+
+            <div class="pick">
+
+                <div class="pick-top">
+                    <span>Example League</span>
+                    <span>Match</span>
+                </div>
+
+                <div class="pick-match">
+                    Arsenal vs Example City
+                </div>
+
+                <div class="pick-bottom">
+                    <span>Correct Score</span>
+                    <span class="score">1 - 1</span>
+                </div>
+
+            </div>
+
+            <div class="ticket-footer">
+                These are demonstration selections for the website interface.
+                They are not live odds and are not guarantees of an outcome.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+<section class="stats">
+    <div class="container">
+
+        <div class="stats-grid">
+
+            <div class="stat-card reveal">
+                <div class="stat-number" data-count="9">0</div>
+                <div class="stat-label">Countries listed</div>
+            </div>
+
+            <div class="stat-card reveal">
+                <div class="stat-number" data-count="4">0</div>
+                <div class="stat-label">Regions represented</div>
+            </div>
+
+            <div class="stat-card reveal">
+                <div class="stat-number" data-count="24">0</div>
+                <div class="stat-label">Hour registration access</div>
+            </div>
+
+            <div class="stat-card reveal">
+                <div class="stat-number" data-count="1">0</div>
+                <div class="stat-label">WhatsApp contact link</div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- FEATURES -->
+<section class="section" id="features">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span class="eyebrow">
+                Why EliteOdds
+            </span>
+
+            <h2>
+                Everything in one place.
+            </h2>
+
+            <p>
+                A simple interface for browsing prediction information
+                and starting a membership registration.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <article class="feature reveal">
+
+                <div class="feature-icon">📊</div>
+
+                <h3>Prediction Information</h3>
+
+                <p>
+                    Browse example football selections in a clean,
+                    easy-to-understand format.
+                </p>
+
+            </article>
+
+
+            <article class="feature reveal">
+
+                <div class="feature-icon">🌍</div>
+
+                <h3>Multiple Countries</h3>
+
+                <p>
+                    Select your country and automatically see the
+                    corresponding displayed registration fee.
+                </p>
+
+            </article>
+
+
+            <article class="feature reveal">
+
+                <div class="feature-icon">📱</div>
+
+                <h3>WhatsApp Registration</h3>
+
+                <p>
+                    Your selected country and fee can automatically
+                    be included in the WhatsApp registration message.
+                </p>
+
+            </article>
+
+
+            <article class="feature reveal">
+
+                <div class="feature-icon">⚡</div>
+
+                <h3>Fast Interface</h3>
+
+                <p>
+                    No external framework is required. The page works
+                    as a standalone HTML website.
+                </p>
+
+            </article>
+
+
+            <article class="feature reveal">
+
+                <div class="feature-icon">🌙</div>
+
+                <h3>Dark & Light Mode</h3>
+
+                <p>
+                    Switch between dark and light themes. Your choice
+                    is saved automatically on your device.
+                </p>
+
+            </article>
+
+
+            <article class="feature reveal">
+
+                <div class="feature-icon">🔎</div>
+
+                <h3>Smart Search</h3>
+
+                <p>
+                    Quickly search countries and FAQ questions
+                    without leaving the page.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EXAMPLE PREDICTIONS -->
+<section class="section" id="predictions">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span class="eyebrow">
+                Example selections
+            </span>
+
+            <h2>
+                Prediction card interface.
+            </h2>
+
+            <p>
+                These cards demonstrate how selections can be displayed.
+            </p>
+
+        </div>
+
+
+        <div class="predictions">
+
+            <article class="prediction-card reveal">
+
+                <div class="prediction-header">
+                    <span>DEMO CARD</span>
+                    <span>Football</span>
+                </div>
+
+                <div class="prediction-body">
+
+                    <div class="league">
+                        Premier League — Example
+                    </div>
+
+                    <div class="teams">
+                        Manchester City
+                        <br>
+                        vs
+                        <br>
+                        Example FC
+                    </div>
+
+                    <div class="prediction-row">
+                        <span>Example selection</span>
+                        <strong>2 - 1</strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="prediction-card reveal">
+
+                <div class="prediction-header">
+                    <span>DEMO CARD</span>
+                    <span>Football</span>
+                </div>
+
+                <div class="prediction-body">
+
+                    <div class="league">
+                        La Liga — Example
+                    </div>
+
+                    <div class="teams">
+                        Barcelona
+                        <br>
+                        vs
+                        <br>
+                        Example United
+                    </div>
+
+                    <div class="prediction-row">
+                        <span>Example selection</span>
+                        <strong>2 - 0</strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="prediction-card reveal">
+
+                <div class="prediction-header">
+                    <span>DEMO CARD</span>
+                    <span>Football</span>
+                </div>
+
+                <div class="prediction-body">
+
+                    <div class="league">
+                        Example League
+                    </div>
+
+                    <div class="teams">
+                        Arsenal
+                        <br>
+                        vs
+                        <br>
+                        Example City
+                    </div>
+
+                    <div class="prediction-row">
+                        <span>Example selection</span>
+                        <strong>1 - 1</strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <div class="demo-note reveal">
+            ⚠️ <strong>Important:</strong>
+            The selections above are website demonstration content.
+            They are not live betting advice, guaranteed results,
+            or proof of previous winnings.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span class="eyebrow">
+                Simple process
+            </span>
+
+            <h2>
+                How registration works.
+            </h2>
+
+            <p>
+                Everything is handled through the single registration
+                contact link.
+            </p>
+
+        </div>
+
+
+        <div class="process">
+
+            <div class="step reveal">
+
+                <div class="step-number">1</div>
+
+                <h3>Choose country</h3>
+
+                <p>
+                    Select the country where you are registering.
+                </p>
+
+            </div>
+
+
+            <div class="step reveal">
+
+                <div class="step-number">2</div>
+
+                <h3>Check fee</h3>
+
+                <p>
+                    The website displays the registration amount
+                    configured for that country.
+                </p>
+
+            </div>
+
+
+            <div class="step reveal">
+
+                <div class="step-number">3</div>
+
+                <h3>Enter details</h3>
+
+                <p>
+                    Add your name and optional phone number
+                    before continuing.
+                </p>
+
+            </div>
+
+
+            <div class="step reveal">
+
+                <div class="step-number">4</div>
+
+                <h3>Open WhatsApp</h3>
+
+                <p>
+                    One WhatsApp link opens with your registration
+                    information already prepared.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MEMBERSHIP -->
+<section class="section" id="membership">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span class="eyebrow">
+                Membership registration
+            </span>
+
+            <h2>
+                Choose your country.
+            </h2>
+
+            <p>
+                Select a country below to prepare your registration request.
+            </p>
+
+        </div>
+
+
+        <div class="membership">
+
+            <div class="membership-main reveal">
+
+                <span class="badge badge-green">
+                    VIP registration
+                </span>
+
+                <div class="price" id="mainPrice">
+                    KES 1,500
+                </div>
+
+                <p id="mainCountry">
+                    Kenya
+                </p>
+
+                <div class="benefits">
+
+                    <div class="benefit">
+                        <span class="check">✓</span>
+                        <span>Country-specific registration amount</span>
+                    </div>
+
+                    <div class="benefit">
+                        <span class="check">✓</span>
+                        <span>WhatsApp registration request</span>
+                    </div>
+
+                    <div class="benefit">
+                        <span class="check">✓</span>
+                        <span>Simple mobile-friendly process</span>
+                    </div>
+
+                    <div class="benefit">
+                        <span class="check">✓</span>
+                        <span>Access information supplied through the registration channel</span>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button class="btn btn-primary" id="openRegistration">
+                    Continue Registration →
+                </button>
+
+            </div>
+
+
+            <div class="membership-countries reveal">
+
+                <h3>
+                    Available countries
+                </h3>
+
+                <input
+                    type="search"
+                    id="countrySearch"
+                    class="country-search"
+                    placeholder="Search country..."
+                    autocomplete="off"
+                >
+
+                <div class="country-list" id="countryList"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REGISTRATION FORM -->
+<section class="section">
+
+    <div class="container">
+
+        <div class="registration-box reveal">
+
+            <div class="section-title" style="margin-bottom:30px;">
+
+                <span class="eyebrow">
+                    Quick registration
+                </span>
+
+                <h2 style="font-size:34px;">
+                    Prepare your WhatsApp request.
+                </h2>
+
+                <p>
+                    Enter your information and continue using the
+                    single WhatsApp contact link.
+                </p>
+
+            </div>
+
+
+            <form id="registrationForm">
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label for="fullName">
+                            Full name
+                        </label>
+
+                        <input
+                            id="fullName"
+                            type="text"
+                            placeholder="Enter your name"
+                            maxlength="80"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="phone">
+                            Phone number
+                        </label>
+
+                        <input
+                            id="phone"
+                            type="tel"
+                            placeholder="Optional"
+                            maxlength="25"
+                        >
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label for="formCountry">
+                            Country
+                        </label>
+
+                        <select id="formCountry"></select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-summary">
+
+                    <div class="summary-row">
+                        <span>Selected country</span>
+                        <strong id="summaryCountry">
+                            Kenya
+                        </strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Displayed registration fee</span>
+                        <strong id="summaryFee">
+                            KES 1,500
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        📱 Continue to WhatsApp
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="copyFee"
+                    >
+                        📋 Copy Fee
+                    </button>
+
+                </div>
+
+
+                <div class="form-note">
+                    This page only prepares a WhatsApp message.
+                    It does not independently process or verify payments.
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FAQ -->
+<section class="section" id="faq">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span class="eyebrow">
+                Help center
+            </span>
+
+            <h2>
+                Frequently asked questions.
+            </h2>
+
+            <p>
+                Search the questions below.
+            </p>
+
+        </div>
+
+
+        <div class="faq-wrap">
+
+            <input
+                type="search"
+                class="country-search faq-search"
+                id="faqSearch"
+                placeholder="Search FAQ..."
+            >
+
+
+            <div class="faq" data-question="What is EliteOdds?">
+
+                <button class="faq-question">
+                    <span>What is EliteOdds?</span>
+                    <span class="faq-symbol">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        EliteOdds is a football prediction information
+                        and membership-registration website interface.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="faq" data-question="How do I register?">
+
+                <button class="faq-question">
+                    <span>How do I register?</span>
+                    <span class="faq-symbol">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Select your country, enter your name and optionally
+                        your phone number, then use the WhatsApp button to
+                        send your registration request.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="faq" data-question="How does the WhatsApp link work?">
+
+                <button class="faq-question">
+                    <span>How does the WhatsApp link work?</span>
+                    <span class="faq-symbol">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        The website creates one WhatsApp link containing
+                        your selected country, displayed registration fee
+                        and the information you entered.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="faq" data-question="Are predictions guaranteed?">
+
+                <button class="faq-question">
+                    <span>Are predictions guaranteed?</span>
+                    <span class="faq-symbol">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        No. Football predictions are uncertain. No selection
+                        can guarantee a particular match result or winnings.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="faq" data-question="Does this website process payments?">
+
+                <button class="faq-question">
+                    <span>Does this website process payments?</span>
+                    <span class="faq-symbol">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        No. This standalone HTML page displays the configured
+                        registration information and prepares a WhatsApp
+                        request. It does not process or verify payments.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="faq" data-question="Can I use the website on a phone?">
+
+                <button class="faq-question">
+                    <span>Can I use the website on a phone?</span>
+                    <span class="faq-symbol">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes. The website is designed to be responsive and
+                        works on Android, iPhone, tablets and desktop browsers.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+
+    <div class="container">
+
+        <div class="contact-card reveal">
+
+            <span class="eyebrow">
+                Direct contact
+            </span>
+
+            <h2>
+                Ready to register?
+            </h2>
+
+            <p>
+                Select your country above or use the single contact
+                button below to start a WhatsApp conversation.
+            </p>
+
+            <div class="whatsapp-number">
+                WhatsApp: +254 716 835 042
+            </div>
+
+            <br>
+
+            <a
+                href="#"
+                id="mainWhatsApp"
+                class="btn btn-primary"
+                target="_blank"
+                rel="noopener"
+            >
+                💬 Open WhatsApp
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <a href="#home" class="logo">
+                    <span class="logo-ball">⚽</span>
+                    <span>Elite<span>Odds</span></span>
+                </a>
+
+                <p>
+                    Football prediction information and membership
+                    registration interface built as a single-page website.
+                </p>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>Navigation</h4>
+
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#predictions">Examples</a>
+                <a href="#membership">Membership</a>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>Information</h4>
+
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Contact</a>
+                <a href="#home">Responsible participation</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © <span id="year"></span> EliteOdds.
+            All rights reserved.
+
+            <br><br>
+
+            <strong>Responsible participation:</strong>
+            Football outcomes are uncertain. Prediction information
+            does not guarantee winnings or results. Only participate
+            where permitted by applicable law and only with money you
+            can afford to lose.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- FLOATING WHATSAPP -->
+<a
+    href="#"
+    id="floatingWhatsApp"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener"
+    aria-label="Contact EliteOdds on WhatsApp"
+>
+    💬
+</a>
+
+
+<!-- BACK TO TOP -->
+<button
+    id="backTop"
+    class="back-top"
+    aria-label="Back to top"
+>
+    ↑
+</button>
+
+
+<!-- MOBILE ACTION -->
+<div class="mobile-action">
+
+    <a href="#membership" class="btn btn-secondary">
+        🌍 Country
+    </a>
+
+    <a href="#" id="mobileWhatsApp"
+       class="btn btn-primary"
+       target="_blank"
+       rel="noopener">
+        💬 WhatsApp
+    </a>
+
+</div>
+
+
+<!-- REGISTRATION MODAL -->
+<div class="modal" id="registrationModal">
+
+    <div class="modal-card">
+
+        <button
+            class="icon-btn modal-close"
+            id="modalClose"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+        <span class="eyebrow">
+            Registration
+        </span>
+
+        <h3>
+            Confirm your selection
+        </h3>
+
+        <p>
+            Check the information below before opening WhatsApp.
+        </p>
+
+        <div class="selected-info">
+
+            <div>Country</div>
+
+            <strong id="modalCountry">
+                Kenya
+            </strong>
+
+            <br>
+
+            <div>Displayed fee</div>
+
+            <strong id="modalFee">
+                KES 1,500
+            </strong>
+
+        </div>
+
+        <div style="display:flex;gap:10px;">
+
+            <button
+                class="btn btn-secondary"
+                id="modalCancel"
+                style="flex:1;"
+            >
+                Cancel
+            </button>
+
+            <a
+                href="#"
+                class="btn btn-primary"
+                id="modalWhatsApp"
+                target="_blank"
+                rel="noopener"
+                style="flex:1;"
+            >
+                Continue
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+(function(){
+
+"use strict";
+
+/* =========================================================
+   CONFIGURATION
+   Change ONLY these values if you want to customize the site.
+========================================================= */
+
+const CONFIG = {
+
+    /* ONE WHATSAPP NUMBER FOR THE ENTIRE WEBSITE */
+    whatsappNumber: "254716835042",
+
+    brandName: "EliteOdds",
+
+    storageKey: "eliteodds.country.v2",
+
+    themeKey: "eliteodds.theme.v2"
+
+};
+
+
+/* =========================================================
+   COUNTRY DATA
+========================================================= */
+
+const COUNTRIES = [
+
+    {
+        code:"KE",
+        name:"Kenya",
+        flag:"🇰🇪",
+        currency:"KES",
+        amount:1500,
+        region:"East Africa"
+    },
+
+    {
+        code:"UG",
+        name:"Uganda",
+        flag:"🇺🇬",
+        currency:"UGX",
+        amount:48000,
+        region:"East Africa"
+    },
+
+    {
+        code:"TZ",
+        name:"Tanzania",
+        flag:"🇹🇿",
+        currency:"TZS",
+        amount:50000,
+        region:"East Africa"
+    },
+
+    {
+        code:"ZW",
+        name:"Zimbabwe",
+        flag:"🇿🇼",
+        currency:"USD",
+        amount:55,
+        region:"Southern Africa"
+    },
+
+    {
+        code:"ZM",
+        name:"Zambia",
+        flag:"🇿🇲",
+        currency:"ZMW",
+        amount:320,
+        region:"Southern Africa"
+    },
+
+    {
+        code:"ZA",
+        name:"South Africa",
+        flag:"🇿🇦",
+        currency:"ZAR",
+        amount:460,
+        region:"Southern Africa"
+    },
+
+    {
+        code:"NG",
+        name:"Nigeria",
+        flag:"🇳🇬",
+        currency:"NGN",
+        amount:15000,
+        region:"West Africa"
+    },
+
+    {
+        code:"BW",
+        name:"Botswana",
+        flag:"🇧🇼",
+        currency:"BWP",
+        amount:280,
+        region:"Southern Africa"
+    },
+
+    {
+        code:"CM",
+        name:"Cameroon",
+        flag:"🇨🇲",
+        currency:"XAF",
+        amount:20000,
+        region:"Central Africa"
+    }
+
+];
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const $ = selector => document.querySelector(selector);
+
+const $$ = selector => [...document.querySelectorAll(selector)];
+
+const countryList = $("#countryList");
+const countrySearch = $("#countrySearch");
+
+const formCountry = $("#formCountry");
+
+const mainPrice = $("#mainPrice");
+const mainCountry = $("#mainCountry");
+
+const summaryCountry = $("#summaryCountry");
+const summaryFee = $("#summaryFee");
+
+const modal = $("#registrationModal");
+const modalCountry = $("#modalCountry");
+const modalFee = $("#modalFee");
+
+const toast = $("#toast");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let selectedCountry =
+    localStorage.getItem(CONFIG.storageKey) || "KE";
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function getCountry(code){
+
+    return COUNTRIES.find(
+        country => country.code === code
+    ) || COUNTRIES[0];
+
+}
+
+
+function formatAmount(country){
+
+    return `${country.currency} ${country.amount.toLocaleString()}`;
+
+}
+
+
+function showToast(message){
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(showToast.timer);
+
+    showToast.timer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+
+function saveCountry(){
+
+    localStorage.setItem(
+        CONFIG.storageKey,
+        selectedCountry
+    );
+
+}
+
+
+function getWhatsAppURL(message){
+
+    return `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+}
+
+
+/* =========================================================
+   WHATSAPP MESSAGE
+========================================================= */
+
+function createWhatsAppMessage(){
+
+    const country = getCountry(selectedCountry);
+
+    const name =
+        ($("#fullName")?.value || "").trim();
+
+    const phone =
+        ($("#phone")?.value || "").trim();
+
+    let message =
+`Hello ${CONFIG.brandName}.
+
+I would like to register.
+
+Country: ${country.name}
+Displayed registration fee: ${formatAmount(country)}`;
+
+    if(name){
+
+        message += `
+
+Name: ${name}`;
+
+    }
+
+    if(phone){
+
+        message += `
+
+Phone: ${phone}`;
+
+    }
+
+    message += `
+
+Please provide the registration information and next steps.
+
+Thank you.`;
+
+    return message;
+
+}
+
+
+function updateWhatsAppLinks(){
+
+    const url = getWhatsAppURL(
+        createWhatsAppMessage()
+    );
+
+    const links = [
+        $("#mainWhatsApp"),
+        $("#floatingWhatsApp"),
+        $("#mobileWhatsApp")
+    ];
+
+    links.forEach(link => {
+
+        if(link){
+            link.href = url;
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   COUNTRY DISPLAY
+========================================================= */
+
+function renderCountries(filter=""){
+
+    const query =
+        filter.trim().toLowerCase();
+
+    const filtered =
+        COUNTRIES.filter(country =>
+            country.name.toLowerCase().includes(query) ||
+            country.region.toLowerCase().includes(query)
+        );
+
+    countryList.innerHTML = "";
+
+    if(!filtered.length){
+
+        countryList.innerHTML = `
+            <div style="
+                grid-column:1/-1;
+                padding:25px;
+                text-align:center;
+                color:var(--muted);
+            ">
+                No country found.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    filtered.forEach(country => {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "country" +
+            (
+                country.code === selectedCountry
+                ? " selected"
+                : ""
+            );
+
+        button.innerHTML = `
+
+            <span class="country-left">
+
+                <span class="flag">
+                    ${country.flag}
+                </span>
+
+                <span>
+                    <span class="country-name">
+                        ${country.name}
+                    </span>
+
+                    <span class="region">
+                        ${country.region}
+                    </span>
+                </span>
+
+            </span>
+
+            <span class="country-price">
+                ${formatAmount(country)}
+            </span>
+        `;
+
+
+        button.addEventListener(
+            "click",
+            () => selectCountry(country.code)
+        );
+
+
+        countryList.appendChild(button);
+
+    });
+
+}
+
+
+function renderCountrySelect(){
+
+    formCountry.innerHTML = "";
+
+    COUNTRIES.forEach(country => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = country.code;
+
+        option.textContent =
+            `${country.flag} ${country.name} — ${formatAmount(country)}`;
+
+        if(country.code === selectedCountry){
+
+            option.selected = true;
+
+        }
+
+        formCountry.appendChild(option);
+
+    });
+
+}
+
+
+function updateSelectedCountry(){
+
+    const country =
+        getCountry(selectedCountry);
+
+    mainPrice.textContent =
+        formatAmount(country);
+
+    mainCountry.textContent =
+        country.name;
+
+    summaryCountry.textContent =
+        country.name;
+
+    summaryFee.textContent =
+        formatAmount(country);
+
+    modalCountry.textContent =
+        `${country.flag} ${country.name}`;
+
+    modalFee.textContent =
+        formatAmount(country);
+
+    formCountry.value =
+        country.code;
+
+    renderCountries(
+        countrySearch.value
+    );
+
+    updateWhatsAppLinks();
+
+}
+
+
+function selectCountry(code){
+
+    selectedCountry = code;
+
+    saveCountry();
+
+    updateSelectedCountry();
+
+    showToast(
+        `${getCountry(code).name} selected`
+    );
+
+}
+
+
+/* =========================================================
+   COUNTRY SEARCH
+========================================================= */
+
+countrySearch.addEventListener(
+    "input",
+    () => {
+
+        renderCountries(
+            countrySearch.value
+        );
+
+    }
+);
+
+
+formCountry.addEventListener(
+    "change",
+    event => {
+
+        selectCountry(
+            event.target.value
+        );
+
+    }
+);
+
+
+/* =========================================================
+   REGISTRATION FORM
+========================================================= */
+
+$("#registrationForm").addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        const name =
+            $("#fullName").value.trim();
+
+        if(name.length < 2){
+
+            showToast(
+                "Please enter your full name."
+            );
+
+            $("#fullName").focus();
+
+            return;
+
+        }
+
+        updateWhatsAppLinks();
+
+        openModal();
+
+    }
+);
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openModal(){
+
+    updateSelectedCountry();
+
+    modal.classList.add("show");
+
+    document.body.style.overflow =
+        "hidden";
+
+    $("#modalWhatsApp").href =
+        getWhatsAppURL(
+            createWhatsAppMessage()
+        );
+
+}
+
+
+function closeModal(){
+
+    modal.classList.remove("show");
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+$("#openRegistration").addEventListener(
+    "click",
+    openModal
+);
+
+$("#modalClose").addEventListener(
+    "click",
+    closeModal
+);
+
+$("#modalCancel").addEventListener(
+    "click",
+    closeModal
+);
+
+
+modal.addEventListener(
+    "click",
+    event => {
+
+        if(event.target === modal){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   COPY FEE
+========================================================= */
+
+$("#copyFee").addEventListener(
+    "click",
+    async () => {
+
+        const country =
+            getCountry(selectedCountry);
+
+        const value =
+            formatAmount(country);
+
+        try{
+
+            await navigator.clipboard.writeText(value);
+
+            showToast(
+                `${value} copied`
+            );
+
+        }catch(error){
+
+            showToast(
+                "Copy is not available in this browser."
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuBtn = $("#menuBtn");
+const navLinks = $("#navLinks");
+
+menuBtn.addEventListener(
+    "click",
+    () => {
+
+        navLinks.classList.toggle("show");
+
+    }
+);
+
+
+$$(".nav-links a").forEach(link => {
+
+    link.addEventListener(
+        "click",
+        () => {
+
+            navLinks.classList.remove("show");
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+const themeBtn = $("#themeBtn");
+
+function updateThemeButton(){
+
+    themeBtn.textContent =
+        document.body.classList.contains("light")
+        ? "🌙"
+        : "☀️";
+
+}
+
+
+const savedTheme =
+    localStorage.getItem(CONFIG.themeKey);
+
+if(savedTheme === "light"){
+
+    document.body.classList.add("light");
+
+}
+
+updateThemeButton();
+
+
+themeBtn.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle("light");
+
+        const theme =
+            document.body.classList.contains("light")
+            ? "light"
+            : "dark";
+
+        localStorage.setItem(
+            CONFIG.themeKey,
+            theme
+        );
+
+        updateThemeButton();
+
+    }
+);
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+$$(".faq-question").forEach(question => {
+
+    question.addEventListener(
+        "click",
+        () => {
+
+            const faq =
+                question.closest(".faq");
+
+            const wasOpen =
+                faq.classList.contains("open");
+
+            $$(".faq").forEach(item => {
+
+                item.classList.remove("open");
+
+                const symbol =
+                    item.querySelector(".faq-symbol");
+
+                if(symbol){
+                    symbol.textContent = "+";
+                }
+
+            });
+
+
+            if(!wasOpen){
+
+                faq.classList.add("open");
+
+                const symbol =
+                    faq.querySelector(".faq-symbol");
+
+                if(symbol){
+                    symbol.textContent = "−";
+                }
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   FAQ SEARCH
+========================================================= */
+
+$("#faqSearch").addEventListener(
+    "input",
+    event => {
+
+        const query =
+            event.target.value
+                .trim()
+                .toLowerCase();
+
+        $$(".faq").forEach(faq => {
+
+            const question =
+                faq.dataset.question
+                    .toLowerCase();
+
+            const answer =
+                faq.textContent
+                    .toLowerCase();
+
+            faq.style.display =
+                !query ||
+                question.includes(query) ||
+                answer.includes(query)
+                    ? ""
+                    : "none";
+
+        });
+
+    }
+);
+
+
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        const scrollTop =
+            window.scrollY;
+
+        const documentHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+        const percentage =
+            documentHeight > 0
+                ? (scrollTop / documentHeight) * 100
+                : 0;
+
+        $("#progress").style.width =
+            `${percentage}%`;
+
+        $("#backTop").style.display =
+            scrollTop > 500
+                ? "grid"
+                : "none";
+
+    },
+    {passive:true}
+);
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+$("#backTop").addEventListener(
+    "click",
+    () => {
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }
+);
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+const sections =
+    $$("main section[id]");
+
+const navAnchors =
+    $$(".nav-links a");
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    navAnchors.forEach(
+                        anchor =>
+                            anchor.classList.remove("active")
+                    );
+
+                    const active =
+                        document.querySelector(
+                            `.nav-links a[href="#${entry.target.id}"]`
+                        );
+
+                    if(active){
+
+                        active.classList.add("active");
+
+                    }
+
+                }
+
+            });
+
+        },
+        {
+            rootMargin:"-35% 0px -55% 0px"
+        }
+    );
+
+
+sections.forEach(section =>
+    observer.observe(section)
+);
+
+
+/* =========================================================
+   REVEAL ANIMATION
+========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+
+$$(".reveal").forEach(
+    element =>
+        revealObserver.observe(element)
+);
+
+
+/* =========================================================
+   COUNTER ANIMATION
+========================================================= */
+
+function animateCounter(element){
+
+    const target =
+        Number(element.dataset.count);
+
+    let current = 0;
+
+    const duration = 1000;
+
+    const start =
+        performance.now();
+
+    function frame(now){
+
+        const progress =
+            Math.min(
+                (now - start) / duration,
+                1
+            );
+
+        current =
+            Math.floor(
+                progress * target
+            );
+
+        element.textContent =
+            current.toLocaleString();
+
+        if(progress < 1){
+
+            requestAnimationFrame(frame);
+
+        }
+
+    }
+
+    requestAnimationFrame(frame);
+
+}
+
+
+const counterObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    animateCounter(
+                        entry.target
+                    );
+
+                    counterObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.7
+        }
+    );
+
+
+$$("[data-count]").forEach(
+    counter =>
+        counterObserver.observe(counter)
+);
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function updateDate(){
+
+    const now =
+        new Date();
+
+    $("#todayDate").textContent =
+        now.toLocaleDateString(
+            undefined,
+            {
+                weekday:"short",
+                year:"numeric",
+                month:"short",
+                day:"numeric"
+            }
+        );
+
+    $("#year").textContent =
+        now.getFullYear();
+
+}
+
+
+updateDate();
+
+
+/* =========================================================
+   UPDATE WHATSAPP WHEN FORM CHANGES
+========================================================= */
+
+["fullName","phone"].forEach(id => {
+
+    const element = $("#" + id);
+
+    if(element){
+
+        element.addEventListener(
+            "input",
+            updateWhatsAppLinks
+        );
+
+    }
+
+});
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+if(!COUNTRIES.some(
+    country =>
+        country.code === selectedCountry
+)){
+
+    selectedCountry = "KE";
+
+}
+
+
+renderCountrySelect();
+
+renderCountries();
+
+updateSelectedCountry();
+
+updateWhatsAppLinks();
+
+
+})();
+</script>
+
+</body>
+  </html>
