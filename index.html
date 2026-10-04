@@ -1,0 +1,4244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="EliteOdds football prediction dashboard and VIP membership platform.">
+<meta name="author" content="EliteOdds">
+
+<title>EliteOdds — Football Prediction Dashboard</title>
+
+<style>
+/* =========================================================
+   ELITEODDS — ADVANCED SINGLE FILE APP
+   No external libraries required.
+========================================================= */
+
+:root{
+  --bg:#07111f;
+  --bg2:#0b1728;
+  --panel:#0e1d31;
+  --panel2:#12243b;
+  --card:#102138;
+  --border:rgba(255,255,255,.09);
+  --text:#f4f8ff;
+  --muted:#91a4bb;
+  --green:#20d889;
+  --green2:#12a86a;
+  --blue:#3b82f6;
+  --yellow:#f7c948;
+  --red:#ff5d73;
+  --purple:#9b6cff;
+  --shadow:0 20px 60px rgba(0,0,0,.28);
+  --radius:18px;
+  --sidebar:250px;
+}
+
+body.light{
+  --bg:#f4f7fb;
+  --bg2:#ffffff;
+  --panel:#ffffff;
+  --panel2:#f4f7fb;
+  --card:#ffffff;
+  --border:rgba(15,30,50,.1);
+  --text:#142033;
+  --muted:#66758a;
+  --shadow:0 15px 40px rgba(24,45,70,.10);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+    radial-gradient(circle at 15% 10%,rgba(32,216,137,.08),transparent 28%),
+    radial-gradient(circle at 85% 15%,rgba(59,130,246,.08),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:.25s;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+img{
+  max-width:100%;
+}
+
+::selection{
+  background:var(--green);
+  color:#00170d;
+}
+
+::-webkit-scrollbar{
+  width:9px;
+}
+
+::-webkit-scrollbar-track{
+  background:var(--bg);
+}
+
+::-webkit-scrollbar-thumb{
+  background:#263b55;
+  border-radius:20px;
+}
+
+/* =========================================================
+   TOP ANNOUNCEMENT
+========================================================= */
+
+.announcement{
+  min-height:38px;
+  background:linear-gradient(90deg,#087a4b,#0fa96b,#087a4b);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 15px;
+  font-size:13px;
+  font-weight:700;
+  text-align:center;
+}
+
+.announcement span{
+  opacity:.9;
+}
+
+.announcement button{
+  margin-left:12px;
+  border:0;
+  background:rgba(255,255,255,.15);
+  color:white;
+  padding:4px 9px;
+  border-radius:8px;
+}
+
+/* =========================================================
+   APP LAYOUT
+========================================================= */
+
+.app{
+  display:flex;
+  min-height:calc(100vh - 38px);
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+  width:var(--sidebar);
+  position:fixed;
+  left:0;
+  top:38px;
+  bottom:0;
+  z-index:100;
+  border-right:1px solid var(--border);
+  background:rgba(8,18,32,.96);
+  backdrop-filter:blur(20px);
+  padding:22px 15px;
+  overflow-y:auto;
+}
+
+body.light .sidebar{
+  background:rgba(255,255,255,.96);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:5px 10px 24px;
+}
+
+.logo-icon{
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  font-size:21px;
+  font-weight:900;
+  color:#002014;
+  background:linear-gradient(135deg,#35f3a2,#0eb66f);
+  box-shadow:0 8px 25px rgba(32,216,137,.22);
+}
+
+.logo strong{
+  font-size:19px;
+  letter-spacing:-.5px;
+}
+
+.logo small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
+}
+
+.side-title{
+  color:#667c94;
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:1.3px;
+  padding:15px 10px 8px;
+}
+
+.nav-item{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:var(--muted);
+  background:transparent;
+  border:1px solid transparent;
+  padding:11px 12px;
+  margin:3px 0;
+  border-radius:12px;
+  text-align:left;
+  transition:.2s;
+}
+
+.nav-item:hover{
+  color:var(--text);
+  background:var(--panel2);
+}
+
+.nav-item.active{
+  color:var(--green);
+  background:rgba(32,216,137,.10);
+  border-color:rgba(32,216,137,.12);
+}
+
+.nav-icon{
+  width:22px;
+  text-align:center;
+}
+
+.side-bottom{
+  margin-top:25px;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(32,216,137,.08),rgba(59,130,246,.05));
+}
+
+.side-bottom p{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.5;
+  margin:7px 0 12px;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+  margin-left:var(--sidebar);
+  width:calc(100% - var(--sidebar));
+  min-width:0;
+}
+
+.topbar{
+  height:68px;
+  position:sticky;
+  top:0;
+  z-index:90;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:10px 28px;
+  border-bottom:1px solid var(--border);
+  background:rgba(7,17,31,.82);
+  backdrop-filter:blur(18px);
+}
+
+body.light .topbar{
+  background:rgba(255,255,255,.86);
+}
+
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:min(420px,55%);
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:12px;
+  padding:10px 13px;
+}
+
+.search-box input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  color:var(--text);
+  background:transparent;
+}
+
+.search-box input::placeholder{
+  color:#657890;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.icon-btn{
+  width:40px;
+  height:40px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  transition:.2s;
+}
+
+.icon-btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(32,216,137,.4);
+}
+
+.profile-mini{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:4px 8px 4px 4px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--panel);
+}
+
+.avatar{
+  width:32px;
+  height:32px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#173d63,#0b7951);
+}
+
+.profile-mini span{
+  font-size:12px;
+  font-weight:800;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+  max-width:1500px;
+  margin:auto;
+  padding:30px;
+}
+
+.section{
+  margin-bottom:42px;
+  scroll-margin-top:90px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.section-head h2{
+  font-size:23px;
+  letter-spacing:-.6px;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:330px;
+  border:1px solid var(--border);
+  border-radius:25px;
+  background:
+    linear-gradient(120deg,rgba(10,35,56,.98),rgba(8,25,44,.92)),
+    var(--panel);
+  box-shadow:var(--shadow);
+  padding:40px;
+  display:flex;
+  align-items:center;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  right:-130px;
+  top:-180px;
+  background:rgba(32,216,137,.12);
+  filter:blur(5px);
+}
+
+.hero::after{
+  content:"⚽";
+  position:absolute;
+  right:60px;
+  bottom:-55px;
+  font-size:220px;
+  opacity:.035;
+  transform:rotate(-15deg);
+}
+
+.hero-content{
+  max-width:720px;
+  position:relative;
+  z-index:2;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  border:1px solid rgba(32,216,137,.22);
+  color:var(--green);
+  background:rgba(32,216,137,.08);
+  padding:7px 11px;
+  border-radius:99px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+
+.hero h1{
+  font-size:clamp(34px,5vw,62px);
+  line-height:1;
+  letter-spacing:-2.5px;
+  margin:18px 0;
+}
+
+.gradient-text{
+  color:var(--green);
+}
+
+.hero p{
+  max-width:640px;
+  color:#a8b8cb;
+  line-height:1.7;
+  font-size:15px;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:25px;
+}
+
+.btn{
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  padding:11px 16px;
+  border-radius:11px;
+  font-weight:800;
+  font-size:13px;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#27e092,#10ad6b);
+  color:#00180e;
+  border-color:transparent;
+  box-shadow:0 10px 30px rgba(32,216,137,.18);
+}
+
+.btn-blue{
+  background:linear-gradient(135deg,#4d91ff,#2871e7);
+  color:white;
+  border-color:transparent;
+}
+
+.btn-danger{
+  background:rgba(255,93,115,.1);
+  color:#ff7b8c;
+  border-color:rgba(255,93,115,.2);
+}
+
+.btn-small{
+  padding:8px 11px;
+  font-size:11px;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:18px;
+}
+
+.stat-card{
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:18px;
+  background:var(--panel);
+  box-shadow:var(--shadow);
+}
+
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat-number{
+  font-size:27px;
+  font-weight:900;
+  margin-top:9px;
+}
+
+.stat-change{
+  color:var(--green);
+  font-size:11px;
+  margin-top:6px;
+}
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:9px;
+  padding:12px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:16px;
+  margin-bottom:15px;
+}
+
+.filter-btn{
+  border:1px solid transparent;
+  color:var(--muted);
+  background:transparent;
+  padding:9px 13px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.filter-btn:hover{
+  color:var(--text);
+  background:var(--panel2);
+}
+
+.filter-btn.active{
+  color:var(--green);
+  background:rgba(32,216,137,.1);
+  border-color:rgba(32,216,137,.12);
+}
+
+.select{
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:10px;
+  padding:9px 12px;
+  outline:0;
+}
+
+/* =========================================================
+   MATCH GRID
+========================================================= */
+
+.match-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.match-card{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--panel);
+  padding:17px;
+  overflow:hidden;
+  transition:.25s;
+}
+
+.match-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(32,216,137,.25);
+  box-shadow:var(--shadow);
+}
+
+.match-card.featured{
+  border-color:rgba(247,201,72,.2);
+}
+
+.match-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.league{
+  font-size:10px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  font-weight:800;
+}
+
+.live-tag{
+  color:#ff6b7e;
+  background:rgba(255,93,115,.1);
+  padding:4px 7px;
+  border-radius:7px;
+  font-size:9px;
+  font-weight:900;
+}
+
+.star{
+  border:0;
+  background:transparent;
+  color:#657890;
+  font-size:19px;
+  padding:0;
+}
+
+.star.active{
+  color:var(--yellow);
+}
+
+.match-time{
+  text-align:center;
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:12px;
+}
+
+.teams{
+  display:grid;
+  grid-template-columns:1fr 50px 1fr;
+  align-items:center;
+  text-align:center;
+}
+
+.team{
+  font-size:13px;
+  font-weight:850;
+  line-height:1.3;
+}
+
+.team-icon{
+  width:39px;
+  height:39px;
+  margin:0 auto 8px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:var(--panel2);
+  font-size:18px;
+}
+
+.vs{
+  color:#657890;
+  font-size:10px;
+  font-weight:900;
+}
+
+.prediction{
+  margin-top:15px;
+  border-radius:12px;
+  padding:12px;
+  background:var(--panel2);
+  border:1px solid var(--border);
+}
+
+.prediction-label{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.prediction-value{
+  font-size:16px;
+  font-weight:900;
+  margin-top:5px;
+  color:var(--green);
+}
+
+.card-actions{
+  display:flex;
+  gap:7px;
+  margin-top:12px;
+}
+
+.card-actions .btn{
+  flex:1;
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px 20px;
+  border:1px dashed var(--border);
+  border-radius:18px;
+  color:var(--muted);
+}
+
+.empty-icon{
+  font-size:35px;
+  margin-bottom:10px;
+}
+
+/* =========================================================
+   CATEGORY CARDS
+========================================================= */
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.category{
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:20px;
+  background:var(--panel);
+  transition:.2s;
+}
+
+.category:hover{
+  transform:translateY(-3px);
+}
+
+.category-icon{
+  width:44px;
+  height:44px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:rgba(59,130,246,.1);
+  margin-bottom:16px;
+  font-size:20px;
+}
+
+.category h3{
+  font-size:15px;
+}
+
+.category p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+  margin-top:6px;
+}
+
+/* =========================================================
+   ANALYSIS PANEL
+========================================================= */
+
+.analysis-grid{
+  display:grid;
+  grid-template-columns:1.4fr .8fr;
+  gap:16px;
+}
+
+.panel{
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:18px;
+  padding:20px;
+}
+
+.panel h3{
+  font-size:16px;
+  margin-bottom:15px;
+}
+
+.progress-row{
+  margin:14px 0;
+}
+
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.progress{
+  height:7px;
+  border-radius:99px;
+  overflow:hidden;
+  background:var(--panel2);
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--green),#5df5b3);
+}
+
+/* =========================================================
+   COUNTRY / MEMBERSHIP
+========================================================= */
+
+.country-layout{
+  display:grid;
+  grid-template-columns:1.4fr .7fr;
+  gap:16px;
+}
+
+.country-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:11px;
+}
+
+.country{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+  background:var(--panel);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.country:hover,
+.country.selected{
+  border-color:rgba(32,216,137,.4);
+  background:rgba(32,216,137,.06);
+  transform:translateY(-2px);
+}
+
+.country-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.flag{
+  font-size:24px;
+}
+
+.country-name{
+  font-size:13px;
+  font-weight:850;
+}
+
+.country-code{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
+}
+
+.country-fee{
+  color:var(--green);
+  font-weight:900;
+  font-size:14px;
+  margin-top:14px;
+}
+
+.country-card{
+  position:sticky;
+  top:90px;
+  height:max-content;
+  border:1px solid rgba(32,216,137,.2);
+  background:
+    linear-gradient(145deg,rgba(32,216,137,.10),rgba(59,130,246,.04)),
+    var(--panel);
+  border-radius:20px;
+  padding:22px;
+}
+
+.country-card h3{
+  font-size:19px;
+}
+
+.price{
+  font-size:34px;
+  font-weight:950;
+  margin:15px 0;
+}
+
+.benefit{
+  display:flex;
+  gap:9px;
+  margin:11px 0;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.check{
+  color:var(--green);
+  font-weight:900;
+}
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq-list{
+  display:grid;
+  gap:9px;
+}
+
+.faq{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--panel);
+  overflow:hidden;
+}
+
+.faq button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--text);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px;
+  text-align:left;
+  font-weight:800;
+  font-size:13px;
+}
+
+.faq-content{
+  display:none;
+  padding:0 16px 17px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.faq.open .faq-content{
+  display:block;
+}
+
+/* =========================================================
+   RESPONSIBLE
+========================================================= */
+
+.responsible{
+  border:1px solid rgba(247,201,72,.16);
+  background:rgba(247,201,72,.045);
+  border-radius:18px;
+  padding:20px;
+}
+
+.responsible h3{
+  color:var(--yellow);
+  margin-bottom:8px;
+}
+
+.responsible p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+  border-top:1px solid var(--border);
+  margin-top:40px;
+  padding:30px;
+}
+
+.footer-grid{
+  max-width:1500px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:25px;
+}
+
+footer h4{
+  margin-bottom:10px;
+}
+
+footer p,
+footer a{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+}
+
+footer a:hover{
+  color:var(--green);
+}
+
+.footer-bottom{
+  max-width:1500px;
+  margin:25px auto 0;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:11px;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(8px);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(600px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+  animation:modalIn .2s ease;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:translateY(15px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:19px 20px;
+  border-bottom:1px solid var(--border);
+}
+
+.modal-head h3{
+  font-size:17px;
+}
+
+.close{
+  width:34px;
+  height:34px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--panel2);
+  color:var(--text);
+}
+
+.modal-body{
+  padding:20px;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.form-group{
+  margin-bottom:13px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+.form-group label{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.form-control{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:11px 12px;
+  background:var(--panel2);
+  color:var(--text);
+  outline:0;
+}
+
+.form-control:focus{
+  border-color:rgba(32,216,137,.5);
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast-container{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:1000;
+  display:grid;
+  gap:9px;
+}
+
+.toast{
+  width:min(360px,calc(100vw - 36px));
+  border:1px solid var(--border);
+  background:var(--panel);
+  box-shadow:var(--shadow);
+  border-radius:13px;
+  padding:13px 15px;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  animation:toastIn .25s ease;
+}
+
+.toast-icon{
+  color:var(--green);
+}
+
+.toast p{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+@keyframes toastIn{
+  from{
+    opacity:0;
+    transform:translateX(20px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* =========================================================
+   COMMAND PALETTE
+========================================================= */
+
+.command{
+  position:fixed;
+  inset:0;
+  z-index:700;
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:100px;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(7px);
+}
+
+.command.show{
+  display:flex;
+}
+
+.command-box{
+  width:min(620px,calc(100% - 30px));
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+  overflow:hidden;
+}
+
+.command-input{
+  width:100%;
+  padding:18px;
+  border:0;
+  border-bottom:1px solid var(--border);
+  outline:0;
+  color:var(--text);
+  background:transparent;
+  font-size:15px;
+}
+
+.command-results{
+  padding:8px;
+}
+
+.command-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--text);
+  padding:12px;
+  border-radius:10px;
+  text-align:left;
+}
+
+.command-item:hover{
+  background:var(--panel2);
+}
+
+/* =========================================================
+   FLOATING WHATSAPP
+========================================================= */
+
+.whatsapp{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:150;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#25d366;
+  color:white;
+  font-size:25px;
+  box-shadow:0 10px 30px rgba(37,211,102,.3);
+  transition:.2s;
+}
+
+.whatsapp:hover{
+  transform:scale(1.07);
+}
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobile-nav{
+  display:none;
+}
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+.back-top{
+  position:fixed;
+  right:20px;
+  bottom:90px;
+  z-index:140;
+  width:40px;
+  height:40px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:11px;
+  display:none;
+}
+
+.back-top.show{
+  display:grid;
+  place-items:center;
+}
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:.65s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+  .match-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .category-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .country-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .country-layout,
+  .analysis-grid{
+    grid-template-columns:1fr;
+  }
+
+  .country-card{
+    position:static;
+  }
+}
+
+@media(max-width:800px){
+
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+    top:38px;
+    box-shadow:20px 0 50px rgba(0,0,0,.3);
+  }
+
+  .sidebar.open{
+    transform:none;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+
+  .mobile-menu{
+    display:grid;
+  }
+
+  .topbar{
+    padding:10px 15px;
+  }
+
+  .search-box{
+    width:auto;
+    flex:1;
+  }
+
+  .profile-mini span{
+    display:none;
+  }
+
+  .content{
+    padding:20px 15px 90px;
+  }
+
+  .hero{
+    padding:28px 22px;
+    min-height:380px;
+  }
+
+  .hero h1{
+    font-size:39px;
+  }
+
+  .hero::after{
+    right:-20px;
+    font-size:160px;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .match-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:300;
+    height:65px;
+    background:rgba(7,17,31,.95);
+    backdrop-filter:blur(20px);
+    border-top:1px solid var(--border);
+  }
+
+  body.light .mobile-nav{
+    background:rgba(255,255,255,.95);
+  }
+
+  .mobile-nav button{
+    flex:1;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    font-size:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+  }
+
+  .mobile-nav button.active{
+    color:var(--green);
+  }
+
+  .whatsapp{
+    bottom:80px;
+  }
+
+  .back-top{
+    bottom:145px;
+  }
+}
+
+@media(max-width:520px){
+
+  .top-actions .profile-mini{
+    display:none;
+  }
+
+  .search-box{
+    display:none;
+  }
+
+  .section-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .stats-grid,
+  .category-grid,
+  .country-grid,
+  .footer-grid,
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    min-height:430px;
+  }
+
+  .hero h1{
+    font-size:35px;
+  }
+
+  .hero-actions .btn{
+    width:100%;
+  }
+
+  .toolbar{
+    overflow-x:auto;
+    flex-wrap:nowrap;
+  }
+
+  .filter-btn{
+    white-space:nowrap;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.001ms!important;
+    transition-duration:.001ms!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="announcement">
+  <span>⚡ EliteOdds dashboard is running in demo mode — football data shown here is sample data.</span>
+  <button onclick="document.querySelector('.announcement').style.display='none'">×</button>
+</div>
+
+<div class="app">
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+    <div class="logo-icon">E</div>
+    <div>
+      <strong>EliteOdds</strong>
+      <small>FOOTBALL DASHBOARD</small>
+    </div>
+  </div>
+
+  <div class="side-title">Main</div>
+
+  <button class="nav-item active" data-section="dashboard">
+    <span class="nav-icon">⌂</span>
+    Dashboard
+  </button>
+
+  <button class="nav-item" data-section="matches">
+    <span class="nav-icon">⚽</span>
+    Match Center
+  </button>
+
+  <button class="nav-item" data-section="favorites">
+    <span class="nav-icon">★</span>
+    Favorites
+  </button>
+
+  <button class="nav-item" data-section="categories">
+    <span class="nav-icon">◈</span>
+    Predictions
+  </button>
+
+  <div class="side-title">Membership</div>
+
+  <button class="nav-item" data-section="membership">
+    <span class="nav-icon">♛</span>
+    VIP Membership
+  </button>
+
+  <button class="nav-item" data-section="faq">
+    <span class="nav-icon">?</span>
+    Help & FAQ
+  </button>
+
+  <div class="side-title">Preferences</div>
+
+  <button class="nav-item" id="sideTheme">
+    <span class="nav-icon">◐</span>
+    Change Theme
+  </button>
+
+  <button class="nav-item" id="openCommand">
+    <span class="nav-icon">⌘</span>
+    Quick Search
+  </button>
+
+  <div class="side-bottom">
+    <strong>VIP Access</strong>
+    <p>Choose your country and contact the registration team through WhatsApp.</p>
+    <button class="btn btn-primary btn-small" style="width:100%" onclick="scrollToSection('membership')">
+      View Membership
+    </button>
+  </div>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+  <button class="icon-btn mobile-menu" id="menuBtn" aria-label="Open menu">
+    ☰
+  </button>
+
+  <div class="search-box">
+    <span>⌕</span>
+    <input
+      id="globalSearch"
+      type="search"
+      placeholder="Search matches...">
+    <small style="color:var(--muted)">Ctrl K</small>
+  </div>
+
+  <div class="top-actions">
+
+    <button class="icon-btn" id="themeBtn" title="Theme">
+      ◐
+    </button>
+
+    <button class="icon-btn" id="notificationBtn" title="Notifications">
+      ♢
+    </button>
+
+    <div class="profile-mini">
+      <div class="avatar">⚽</div>
+      <span>Guest User</span>
+    </div>
+
+  </div>
+
+</header>
+
+<div class="content">
+
+<section class="section" id="dashboard">
+
+  <div class="hero reveal">
+
+    <div class="hero-content">
+
+      <span class="badge">
+        ● Demo prediction platform
+      </span>
+
+      <h1>
+        Football insights.<br>
+        <span class="gradient-text">One smarter dashboard.</span>
+      </h1>
+
+      <p>
+        Explore sample football predictions, match analysis,
+        prediction categories and VIP membership options from one
+        responsive football dashboard.
+      </p>
+
+      <div class="hero-actions">
+
+        <button
+          class="btn btn-primary"
+          onclick="scrollToSection('matches')">
+          ⚽ Explore Matches
+        </button>
+
+        <button
+          class="btn"
+          onclick="scrollToSection('membership')">
+          ♛ VIP Membership
+        </button>
+
+        <button
+          class="btn"
+          onclick="openCommandPalette()">
+          ⌘ Quick Search
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card reveal">
+      <div class="stat-top">
+        <span>Sample Matches</span>
+        <span>⚽</span>
+      </div>
+      <div class="stat-number" data-count="12">0</div>
+      <div class="stat-change">Demo fixtures</div>
+    </div>
+
+    <div class="stat-card reveal">
+      <div class="stat-top">
+        <span>Prediction Types</span>
+        <span>◈</span>
+      </div>
+      <div class="stat-number" data-count="4">0</div>
+      <div class="stat-change">Available categories</div>
+    </div>
+
+    <div class="stat-card reveal">
+      <div class="stat-top">
+        <span>Countries</span>
+        <span>🌍</span>
+      </div>
+      <div class="stat-number" data-count="9">0</div>
+      <div class="stat-change">Membership regions</div>
+    </div>
+
+    <div class="stat-card reveal">
+      <div class="stat-top">
+        <span>Saved Favorites</span>
+        <span>★</span>
+      </div>
+      <div class="stat-number" id="favoriteCount">0</div>
+      <div class="stat-change">Stored on this device</div>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="matches">
+
+  <div class="section-head">
+
+    <div>
+      <h2>Match Center</h2>
+      <p>Explore sample fixtures and prediction categories.</p>
+    </div>
+
+    <span class="badge">
+      DEMO DATA
+    </span>
+
+  </div>
+
+  <div class="toolbar">
+
+    <button class="filter-btn active" data-filter="all">
+      All
+    </button>
+
+    <button class="filter-btn" data-filter="today">
+      Today
+    </button>
+
+    <button class="filter-btn" data-filter="tomorrow">
+      Tomorrow
+    </button>
+
+    <button class="filter-btn" data-filter="featured">
+      ★ Featured
+    </button>
+
+    <button class="filter-btn" data-filter="favorites">
+      ★ Favorites
+    </button>
+
+    <select class="select" id="leagueFilter">
+      <option value="all">All leagues</option>
+      <option value="Premier Demo League">Premier Demo League</option>
+      <option value="Continental Demo Cup">Continental Demo Cup</option>
+      <option value="Champions Demo League">Champions Demo League</option>
+    </select>
+
+    <button class="btn btn-small" onclick="resetFilters()">
+      Reset
+    </button>
+
+  </div>
+
+  <div class="match-grid" id="matchGrid"></div>
+
+</section>
+
+<section class="section" id="favorites">
+
+  <div class="section-head">
+    <div>
+      <h2>Your Favorites</h2>
+      <p>Matches you have starred are saved locally on your device.</p>
+    </div>
+
+    <button class="btn btn-small" onclick="clearFavorites()">
+      Clear Favorites
+    </button>
+  </div>
+
+  <div class="match-grid" id="favoriteGrid"></div>
+
+</section>
+
+<section class="section" id="categories">
+
+  <div class="section-head">
+    <div>
+      <h2>Prediction Categories</h2>
+      <p>Different ways a prediction dashboard can organize football analysis.</p>
+    </div>
+  </div>
+
+  <div class="category-grid">
+
+    <div class="category reveal">
+      <div class="category-icon">1X2</div>
+      <h3>Match Result</h3>
+      <p>
+        Home win, draw or away win prediction category.
+      </p>
+    </div>
+
+    <div class="category reveal">
+      <div class="category-icon">⚽</div>
+      <h3>Correct Score</h3>
+      <p>
+        Example scoreline predictions displayed for demonstration.
+      </p>
+    </div>
+
+    <div class="category reveal">
+      <div class="category-icon">↕</div>
+      <h3>Over / Under</h3>
+      <p>
+        Goal-total prediction category for sample analysis.
+      </p>
+    </div>
+
+    <div class="category reveal">
+      <div class="category-icon">✓</div>
+      <h3>Both Teams</h3>
+      <p>
+        BTTS-style prediction category for the interface.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="analysis">
+
+  <div class="section-head">
+    <div>
+      <h2>Sample Match Analysis</h2>
+      <p>Visual example of how analysis could appear in the application.</p>
+    </div>
+  </div>
+
+  <div class="analysis-grid">
+
+    <div class="panel reveal">
+
+      <h3>Example Team Comparison</h3>
+
+      <div class="progress-row">
+        <div class="progress-info">
+          <span>Home attacking form</span>
+          <b>72%</b>
+        </div>
+        <div class="progress"><i style="width:72%"></i></div>
+      </div>
+
+      <div class="progress-row">
+        <div class="progress-info">
+          <span>Away attacking form</span>
+          <b>61%</b>
+        </div>
+        <div class="progress"><i style="width:61%"></i></div>
+      </div>
+
+      <div class="progress-row">
+        <div class="progress-info">
+          <span>Home defensive form</span>
+          <b>67%</b>
+        </div>
+        <div class="progress"><i style="width:67%"></i></div>
+      </div>
+
+      <div class="progress-row">
+        <div class="progress-info">
+          <span>Away defensive form</span>
+          <b>58%</b>
+        </div>
+        <div class="progress"><i style="width:58%"></i></div>
+      </div>
+
+    </div>
+
+    <div class="panel reveal">
+
+      <h3>Demo Recommendation</h3>
+
+      <div style="
+        padding:18px;
+        border-radius:14px;
+        background:rgba(32,216,137,.07);
+        border:1px solid rgba(32,216,137,.13);
+        text-align:center;
+      ">
+
+        <div style="font-size:11px;color:var(--muted)">
+          SAMPLE PREDICTION
+        </div>
+
+        <div style="
+          font-size:27px;
+          font-weight:950;
+          color:var(--green);
+          margin:10px 0;
+        ">
+          2 — 1
+        </div>
+
+        <div style="font-size:11px;color:var(--muted)">
+          Example correct-score display
+        </div>
+
+      </div>
+
+      <p style="
+        color:var(--muted);
+        font-size:11px;
+        line-height:1.6;
+        margin-top:15px;
+      ">
+        This is a UI demonstration only. It does not represent a
+        guaranteed result, live match information or financial advice.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="membership">
+
+  <div class="section-head">
+
+    <div>
+      <h2>VIP Membership</h2>
+      <p>Select your country to view the sample membership fee.</p>
+    </div>
+
+    <span class="badge">9 COUNTRIES</span>
+
+  </div>
+
+  <div class="country-layout">
+
+    <div>
+
+      <div style="margin-bottom:12px">
+
+        <input
+          class="form-control"
+          id="countrySearch"
+          placeholder="🔎 Search country...">
+
+      </div>
+
+      <div class="country-grid" id="countryGrid"></div>
+
+    </div>
+
+    <div class="country-card">
+
+      <div style="font-size:11px;color:var(--muted)">
+        SELECTED COUNTRY
+      </div>
+
+      <h3 id="selectedCountryName">
+        Kenya 🇰🇪
+      </h3>
+
+      <div class="price" id="selectedCountryFee">
+        KES 1,500
+      </div>
+
+      <div class="benefit">
+        <span class="check">✓</span>
+        <span>VIP football prediction access</span>
+      </div>
+
+      <div class="benefit">
+        <span class="check">✓</span>
+        <span>Prediction categories dashboard</span>
+      </div>
+
+      <div class="benefit">
+        <span class="check">✓</span>
+        <span>WhatsApp registration support</span>
+      </div>
+
+      <div class="benefit">
+        <span class="check">✓</span>
+        <span>Membership information for your region</span>
+      </div>
+
+      <button
+        class="btn btn-primary"
+        style="width:100%;margin-top:15px"
+        onclick="openRegistration()">
+        Register via WhatsApp
+      </button>
+
+      <button
+        class="btn btn-small"
+        style="width:100%;margin-top:8px"
+        onclick="copySelectedFee()">
+        Copy Fee
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="faq">
+
+  <div class="section-head">
+
+    <div>
+      <h2>Frequently Asked Questions</h2>
+      <p>Quick answers about the demo platform.</p>
+    </div>
+
+    <input
+      class="form-control"
+      id="faqSearch"
+      placeholder="Search FAQ..."
+      style="max-width:230px">
+
+  </div>
+
+  <div class="faq-list" id="faqList">
+
+    <div class="faq reveal">
+      <button>
+        What is EliteOdds?
+        <span>+</span>
+      </button>
+      <div class="faq-content">
+        EliteOdds is presented here as a football prediction and
+        membership website interface. This version is a front-end
+        demonstration and does not connect to a live prediction database.
+      </div>
+    </div>
+
+    <div class="faq reveal">
+      <button>
+        Are the displayed matches live?
+        <span>+</span>
+      </button>
+      <div class="faq-content">
+        No. The fixtures and prediction information included in this
+        single-file demo are sample data. A real application would need
+        a trusted football API or backend.
+      </div>
+    </div>
+
+    <div class="faq reveal">
+      <button>
+        Are predictions guaranteed?
+        <span>+</span>
+      </button>
+      <div class="faq-content">
+        No. Football results cannot be guaranteed. Any prediction shown
+        on this demo should be treated as an example of how information
+        could be displayed.
+      </div>
+    </div>
+
+    <div class="faq reveal">
+      <button>
+        How do I register?
+        <span>+</span>
+      </button>
+      <div class="faq-content">
+        Select your country, review the displayed membership information,
+        then use the WhatsApp registration button to contact the
+        registration team.
+      </div>
+    </div>
+
+    <div class="faq reveal">
+      <button>
+        Will my favorites disappear?
+        <span>+</span>
+      </button>
+      <div class="faq-content">
+        Favorites are stored in your browser's local storage. Clearing
+        browser storage may remove them.
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="responsible reveal">
+
+    <h3>⚠ Responsible Participation</h3>
+
+    <p>
+      This website is a front-end demonstration. Football predictions
+      are opinions and examples, not guarantees of results or profit.
+      If you participate in sports betting, follow the laws and
+      regulations applicable in your country, understand the risks,
+      and never stake money you cannot afford to lose.
+    </p>
+
+  </div>
+
+</section>
+
+</div>
+
+<footer>
+
+  <div class="footer-grid">
+
+    <div>
+      <div class="logo" style="padding:0 0 12px">
+        <div class="logo-icon">E</div>
+        <div>
+          <strong>EliteOdds</strong>
+          <small>FOOTBALL DASHBOARD</small>
+        </div>
+      </div>
+
+      <p>
+        A responsive football prediction dashboard interface built
+        as a single HTML file for demonstration and learning.
+      </p>
+    </div>
+
+    <div>
+      <h4>Platform</h4>
+      <a href="#dashboard">Dashboard</a><br>
+      <a href="#matches">Match Center</a><br>
+      <a href="#favorites">Favorites</a><br>
+      <a href="#categories">Predictions</a>
+    </div>
+
+    <div>
+      <h4>Membership</h4>
+      <a href="#membership">VIP Membership</a><br>
+      <a href="#faq">FAQ</a><br>
+      <a href="#membership">Countries</a>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <a href="#" onclick="openRegistration();return false">
+        WhatsApp Registration
+      </a><br>
+      <a href="#faq">Help Center</a><br>
+      <a href="#dashboard">Back to Dashboard</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> EliteOdds. Demo interface.</span>
+    <span id="lastUpdated"></span>
+  </div>
+
+</footer>
+
+</main>
+</div>
+
+<nav class="mobile-nav">
+
+  <button class="active" onclick="scrollToSection('dashboard')">
+    <span>⌂</span>
+    Home
+  </button>
+
+  <button onclick="scrollToSection('matches')">
+    <span>⚽</span>
+    Matches
+  </button>
+
+  <button onclick="scrollToSection('favorites')">
+    <span>★</span>
+    Favorites
+  </button>
+
+  <button onclick="scrollToSection('membership')">
+    <span>♛</span>
+    VIP
+  </button>
+
+  <button onclick="openCommandPalette()">
+    <span>⌕</span>
+    Search
+  </button>
+
+</nav>
+
+<a
+  class="whatsapp"
+  id="whatsappFloat"
+  href="#"
+  target="_blank"
+  rel="noopener"
+  aria-label="WhatsApp">
+  ☎
+</a>
+
+<button class="back-top" id="backTop">
+  ↑
+</button>
+
+<div class="modal" id="matchModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3 id="matchModalTitle">
+        Match Details
+      </h3>
+
+      <button class="close" onclick="closeModal('matchModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body" id="matchModalBody"></div>
+
+  </div>
+
+</div>
+
+<div class="modal" id="registrationModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3>VIP Registration</h3>
+
+      <button class="close" onclick="closeModal('registrationModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <p style="
+        color:var(--muted);
+        font-size:12px;
+        line-height:1.6;
+        margin-bottom:18px;
+      ">
+        Enter your details below. Your information will be used only
+        to prepare a WhatsApp registration message.
+      </p>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Your Name</label>
+          <input
+            id="regName"
+            class="form-control"
+            placeholder="Enter your name">
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input
+            id="regPhone"
+            class="form-control"
+            placeholder="Your phone number">
+        </div>
+
+        <div class="form-group full">
+
+          <label>Selected Country</label>
+
+          <select
+            id="regCountry"
+            class="form-control">
+          </select>
+
+        </div>
+
+        <div class="form-group full">
+
+          <label>Message</label>
+
+          <textarea
+            id="regMessage"
+            class="form-control"
+            rows="4"
+            placeholder="Optional message"></textarea>
+
+        </div>
+
+      </div>
+
+      <button
+        class="btn btn-primary"
+        style="width:100%;margin-top:8px"
+        onclick="sendRegistration()">
+        Continue to WhatsApp
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="command" id="commandPalette">
+
+  <div class="command-box">
+
+    <input
+      class="command-input"
+      id="commandInput"
+      placeholder="Search matches or jump to a section...">
+
+    <div class="command-results" id="commandResults">
+
+      <button
+        class="command-item"
+        onclick="scrollToSection('dashboard');closeCommandPalette()">
+        🏠 Dashboard
+      </button>
+
+      <button
+        class="command-item"
+        onclick="scrollToSection('matches');closeCommandPalette()">
+        ⚽ Match Center
+      </button>
+
+      <button
+        class="command-item"
+        onclick="scrollToSection('favorites');closeCommandPalette()">
+        ★ Favorites
+      </button>
+
+      <button
+        class="command-item"
+        onclick="scrollToSection('membership');closeCommandPalette()">
+        ♛ VIP Membership
+      </button>
+
+      <button
+        class="command-item"
+        onclick="scrollToSection('faq');closeCommandPalette()">
+        ? FAQ
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+
+const CONFIG = {
+
+  brandName: "EliteOdds",
+
+  whatsappNumber: "254716835042",
+
+  storage: {
+    favorites: "eliteodds_favorites_v4",
+    country: "eliteodds_country_v4",
+    theme: "eliteodds_theme_v4",
+    viewed: "eliteodds_viewed_v4",
+    registration: "eliteodds_registration_v4"
+  }
+
+};
+
+/* =========================================================
+   COUNTRY DATA
+========================================================= */
+
+const COUNTRIES = [
+
+  {
+    name:"Kenya",
+    flag:"🇰🇪",
+    code:"KES",
+    fee:1500
+  },
+
+  {
+    name:"Uganda",
+    flag:"🇺🇬",
+    code:"UGX",
+    fee:48000
+  },
+
+  {
+    name:"Tanzania",
+    flag:"🇹🇿",
+    code:"TZS",
+    fee:50000
+  },
+
+  {
+    name:"Zimbabwe",
+    flag:"🇿🇼",
+    code:"USD",
+    fee:55
+  },
+
+  {
+    name:"Zambia",
+    flag:"🇿🇲",
+    code:"ZMW",
+    fee:320
+  },
+
+  {
+    name:"South Africa",
+    flag:"🇿🇦",
+    code:"ZAR",
+    fee:460
+  },
+
+  {
+    name:"Nigeria",
+    flag:"🇳🇬",
+    code:"NGN",
+    fee:15000
+  },
+
+  {
+    name:"Botswana",
+    flag:"🇧🇼",
+    code:"BWP",
+    fee:280
+  },
+
+  {
+    name:"Cameroon",
+    flag:"🇨🇲",
+    code:"XAF",
+    fee:20000
+  }
+
+];
+
+/* =========================================================
+   ALL GAMES REMOVED
+========================================================= */
+
+const MATCHES = [];
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let state = {
+
+  filter:"all",
+
+  league:"all",
+
+  query:"",
+
+  country:localStorage.getItem(CONFIG.storage.country) || "Kenya",
+
+  favorites:JSON.parse(
+    localStorage.getItem(CONFIG.storage.favorites) || "[]"
+  ),
+
+  viewed:JSON.parse(
+    localStorage.getItem(CONFIG.storage.viewed) || "[]"
+  ),
+
+  theme:localStorage.getItem(CONFIG.storage.theme) || "dark"
+
+};
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function saveState(){
+
+  localStorage.setItem(
+    CONFIG.storage.favorites,
+    JSON.stringify(state.favorites)
+  );
+
+  localStorage.setItem(
+    CONFIG.storage.country,
+    state.country
+  );
+
+  localStorage.setItem(
+    CONFIG.storage.viewed,
+    JSON.stringify(state.viewed)
+  );
+
+}
+
+/* =========================================================
+   FORMAT MONEY
+========================================================= */
+
+function formatMoney(number){
+
+  return new Intl.NumberFormat("en-US").format(number);
+
+}
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+function whatsappLink(message){
+
+  return "https://wa.me/" +
+    CONFIG.whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
+
+}
+
+function defaultWhatsAppMessage(){
+
+  const country = COUNTRIES.find(
+    c => c.name === state.country
+  );
+
+  return `Hello ${CONFIG.brandName}.
+
+I would like information about VIP membership.
+
+Country: ${country.name}
+Fee shown: ${country.code} ${formatMoney(country.fee)}
+
+Please provide the registration information.`;
+
+}
+
+function updateWhatsApp(){
+
+  const link = document.getElementById("whatsappFloat");
+
+  link.href = whatsappLink(defaultWhatsAppMessage());
+
+}
+
+/* =========================================================
+   COUNTRIES
+========================================================= */
+
+function renderCountries(){
+
+  const grid =
+    document.getElementById("countryGrid");
+
+  const search =
+    (
+      document.getElementById("countrySearch").value || ""
+    ).toLowerCase().trim();
+
+  const filtered =
+    COUNTRIES.filter(country =>
+      country.name.toLowerCase().includes(search)
+    );
+
+  grid.innerHTML =
+    filtered.map(country => {
+
+      const selected =
+        country.name === state.country;
+
+      return `
+
+        <div
+          class="country ${selected ? "selected" : ""}"
+          onclick="selectCountry('${country.name}')">
+
+          <div class="country-head">
+
+            <div class="flag">
+              ${country.flag}
+            </div>
+
+            <div>
+
+              <div class="country-name">
+                ${country.name}
+              </div>
+
+              <div class="country-code">
+                ${country.code}
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="country-fee">
+            ${country.code} ${formatMoney(country.fee)}
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+/* =========================================================
+   SELECT COUNTRY
+========================================================= */
+
+function selectCountry(name){
+
+  state.country = name;
+
+  localStorage.setItem(
+    CONFIG.storage.country,
+    name
+  );
+
+  updateCountryCard();
+  renderCountries();
+  updateRegistrationCountry();
+  updateWhatsApp();
+
+  toast(
+    "Country selected",
+    `${name} membership information is now selected.`
+  );
+
+}
+
+function updateCountryCard(){
+
+  const country =
+    COUNTRIES.find(
+      c => c.name === state.country
+    );
+
+  if(!country) return;
+
+  document.getElementById(
+    "selectedCountryName"
+  ).textContent =
+    country.name + " " + country.flag;
+
+  document.getElementById(
+    "selectedCountryFee"
+  ).textContent =
+    country.code + " " + formatMoney(country.fee);
+
+}
+
+/* =========================================================
+   REGISTRATION COUNTRY
+========================================================= */
+
+function updateRegistrationCountry(){
+
+  const select =
+    document.getElementById("regCountry");
+
+  select.innerHTML =
+    COUNTRIES.map(c => `
+
+      <option
+        value="${c.name}"
+        ${c.name === state.country ? "selected" : ""}>
+        ${c.flag} ${c.name} — ${c.code} ${formatMoney(c.fee)}
+      </option>
+
+    `).join("");
+
+}
+
+/* =========================================================
+   MATCH FUNCTIONS
+   Kept in place so the rest of the application is unchanged.
+========================================================= */
+
+function getFilteredMatches(){
+
+  return MATCHES.filter(match => {
+
+    const matchesFilter =
+
+      state.filter === "all" ||
+
+      (state.filter === "today" &&
+       match.day === "today") ||
+
+      (state.filter === "tomorrow" &&
+       match.day === "tomorrow") ||
+
+      (state.filter === "featured" &&
+       match.featured) ||
+
+      (state.filter === "favorites" &&
+       state.favorites.includes(match.id));
+
+    const matchesLeague =
+      state.league === "all" ||
+      match.league === state.league;
+
+    const q =
+      state.query.toLowerCase();
+
+    const matchesSearch =
+      !q ||
+      match.home.toLowerCase().includes(q) ||
+      match.away.toLowerCase().includes(q) ||
+      match.league.toLowerCase().includes(q) ||
+      match.type.toLowerCase().includes(q);
+
+    return matchesFilter &&
+           matchesLeague &&
+           matchesSearch;
+
+  });
+
+}
+
+function matchCard(match){
+
+  const favorite =
+    state.favorites.includes(match.id);
+
+  return `
+
+    <article
+      class="match-card ${match.featured ? "featured" : ""}"
+      data-match-id="${match.id}">
+
+      <div class="match-header">
+
+        <span class="league">
+          ${match.league}
+        </span>
+
+        <div style="display:flex;gap:7px;align-items:center">
+
+          ${
+            match.featured
+              ? `<span style="
+                  color:var(--yellow);
+                  font-size:10px;
+                  font-weight:900;
+                ">★</span>`
+              : ""
+          }
+
+          <button
+            class="star ${favorite ? "active" : ""}"
+            onclick="toggleFavorite(${match.id});event.stopPropagation()"
+            aria-label="Favorite">
+            ${favorite ? "★" : "☆"}
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="match-time">
+        ${match.date} · ${match.time}
+      </div>
+
+      <div class="teams">
+
+        <div class="team">
+
+          <div class="team-icon">
+            ${match.homeIcon}
+          </div>
+
+          ${match.home}
+
+        </div>
+
+        <div class="vs">
+          VS
+        </div>
+
+        <div class="team">
+
+          <div class="team-icon">
+            ${match.awayIcon}
+          </div>
+
+          ${match.away}
+
+        </div>
+
+      </div>
+
+      <div class="prediction">
+
+        <div class="prediction-label">
+          <span>${match.type}</span>
+          <span>${match.confidence}</span>
+        </div>
+
+        <div class="prediction-value">
+          ${match.prediction}
+        </div>
+
+      </div>
+
+      <div class="card-actions">
+
+        <button
+          class="btn btn-small"
+          onclick="openMatch(${match.id})">
+          View Analysis
+        </button>
+
+        <button
+          class="btn btn-small"
+          onclick="shareMatch(${match.id})">
+          Share
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+/* =========================================================
+   RENDER MATCHES
+========================================================= */
+
+function renderMatches(){
+
+  const grid =
+    document.getElementById("matchGrid");
+
+  const matches =
+    getFilteredMatches();
+
+  if(!matches.length){
+
+    grid.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ⚽
+        </div>
+
+        <strong>No games currently listed</strong>
+
+        <p style="margin-top:6px">
+          There are currently no games available in the match center.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  grid.innerHTML =
+    matches.map(matchCard).join("");
+
+}
+
+/* =========================================================
+   FAVORITES
+========================================================= */
+
+function renderFavorites(){
+
+  const grid =
+    document.getElementById("favoriteGrid");
+
+  const matches =
+    MATCHES.filter(m =>
+      state.favorites.includes(m.id)
+    );
+
+  if(!matches.length){
+
+    grid.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ☆
+        </div>
+
+        <strong>No favorites yet</strong>
+
+        <p style="margin-top:6px">
+          Matches you save will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  grid.innerHTML =
+    matches.map(matchCard).join("");
+
+}
+
+/* =========================================================
+   FAVORITE TOGGLE
+========================================================= */
+
+function toggleFavorite(id){
+
+  if(state.favorites.includes(id)){
+
+    state.favorites =
+      state.favorites.filter(
+        item => item !== id
+      );
+
+    toast(
+      "Removed",
+      "Match removed from favorites."
+    );
+
+  }else{
+
+    state.favorites.push(id);
+
+    toast(
+      "Saved",
+      "Match added to favorites."
+    );
+
+  }
+
+  saveState();
+
+  updateFavoriteCount();
+  renderMatches();
+  renderFavorites();
+
+}
+
+/* =========================================================
+   FAVORITE COUNT
+========================================================= */
+
+function updateFavoriteCount(){
+
+  document.getElementById(
+    "favoriteCount"
+  ).textContent =
+    state.favorites.length;
+
+}
+
+/* =========================================================
+   CLEAR FAVORITES
+========================================================= */
+
+function clearFavorites(){
+
+  if(!state.favorites.length){
+
+    toast(
+      "Favorites empty",
+      "There are no saved matches."
+    );
+
+    return;
+
+  }
+
+  state.favorites = [];
+
+  saveState();
+
+  renderMatches();
+  renderFavorites();
+  updateFavoriteCount();
+
+  toast(
+    "Favorites cleared",
+    "All saved matches were removed."
+  );
+
+}
+
+/* =========================================================
+   MATCH MODAL
+========================================================= */
+
+function openMatch(id){
+
+  const match =
+    MATCHES.find(m => m.id === id);
+
+  if(!match) return;
+
+  state.viewed =
+    [id, ...state.viewed.filter(x => x !== id)]
+    .slice(0,5);
+
+  saveState();
+
+  document.getElementById(
+    "matchModalTitle"
+  ).textContent =
+    `${match.home} vs ${match.away}`;
+
+  document.getElementById(
+    "matchModalBody"
+  ).innerHTML = `
+
+    <div style="
+      display:grid;
+      grid-template-columns:1fr 70px 1fr;
+      align-items:center;
+      text-align:center;
+      padding:10px 0 25px;
+    ">
+
+      <div>
+
+        <div style="font-size:38px">
+          ${match.homeIcon}
+        </div>
+
+        <strong>${match.home}</strong>
+
+      </div>
+
+      <div>
+
+        <div style="
+          color:var(--muted);
+          font-size:10px;
+          font-weight:900;
+        ">
+          ${match.date}
+        </div>
+
+        <div style="
+          color:var(--green);
+          font-size:16px;
+          font-weight:900;
+          margin-top:5px;
+        ">
+          ${match.time}
+        </div>
+
+      </div>
+
+      <div>
+
+        <div style="font-size:38px">
+          ${match.awayIcon}
+        </div>
+
+        <strong>${match.away}</strong>
+
+      </div>
+
+    </div>
+
+    <div class="panel" style="margin-bottom:12px">
+
+      <div style="
+        color:var(--muted);
+        font-size:10px;
+        text-transform:uppercase;
+      ">
+        Demo Prediction
+      </div>
+
+      <div style="
+        font-size:30px;
+        font-weight:950;
+        color:var(--green);
+        margin-top:7px;
+      ">
+        ${match.prediction}
+      </div>
+
+      <div style="
+        color:var(--muted);
+        font-size:11px;
+        margin-top:5px;
+      ">
+        Category: ${match.type}
+      </div>
+
+    </div>
+
+    <div class="panel">
+
+      <h3>Analysis</h3>
+
+      <p style="
+        color:var(--muted);
+        font-size:12px;
+        line-height:1.7;
+      ">
+        ${match.analysis}. This section demonstrates how a
+        detailed match-analysis page can be presented.
+      </p>
+
+    </div>
+
+  `;
+
+  openModal("matchModal");
+
+}
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+async function shareMatch(id){
+
+  const match =
+    MATCHES.find(m => m.id === id);
+
+  if(!match) return;
+
+  const text =
+`EliteOdds Demo Match
+
+${match.home} vs ${match.away}
+
+Sample prediction:
+${match.prediction}
+
+Category:
+${match.type}
+
+Demo data only.`;
+
+  if(navigator.share){
+
+    try{
+
+      await navigator.share({
+        title:"EliteOdds Match",
+        text:text
+      });
+
+    }catch(e){}
+
+  }else{
+
+    try{
+
+      await navigator.clipboard.writeText(text);
+
+      toast(
+        "Copied",
+        "Match information copied to clipboard."
+      );
+
+    }catch(e){
+
+      toast(
+        "Share",
+        text
+      );
+
+    }
+
+  }
+
+}
+
+/* =========================================================
+   FILTER BUTTONS
+========================================================= */
+
+document.querySelectorAll(
+  ".filter-btn"
+).forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      document.querySelectorAll(
+        ".filter-btn"
+      ).forEach(b =>
+        b.classList.remove("active")
+      );
+
+      button.classList.add("active");
+
+      state.filter =
+        button.dataset.filter;
+
+      renderMatches();
+
+    }
+  );
+
+});
+
+document.getElementById(
+  "leagueFilter"
+).addEventListener(
+  "change",
+  e => {
+
+    state.league =
+      e.target.value;
+
+    renderMatches();
+
+  }
+);
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetFilters(){
+
+  state.filter = "all";
+  state.league = "all";
+  state.query = "";
+
+  document.getElementById(
+    "leagueFilter"
+  ).value = "all";
+
+  document.getElementById(
+    "globalSearch"
+  ).value = "";
+
+  document.querySelectorAll(
+    ".filter-btn"
+  ).forEach(b =>
+    b.classList.remove("active")
+  );
+
+  document.querySelector(
+    '.filter-btn[data-filter="all"]'
+  ).classList.add("active");
+
+  renderMatches();
+
+}
+
+/* =========================================================
+   GLOBAL SEARCH
+========================================================= */
+
+document.getElementById(
+  "globalSearch"
+).addEventListener(
+  "input",
+  e => {
+
+    state.query =
+      e.target.value.trim();
+
+    state.filter = "all";
+
+    document.querySelectorAll(
+      ".filter-btn"
+    ).forEach(b =>
+      b.classList.remove("active")
+    );
+
+    document.querySelector(
+      '.filter-btn[data-filter="all"]'
+    ).classList.add("active");
+
+    renderMatches();
+
+    if(state.query){
+
+      document.getElementById(
+        "matches"
+      ).scrollIntoView({
+        behavior:"smooth"
+      });
+
+    }
+
+  }
+);
+
+/* =========================================================
+   COUNTRY SEARCH
+========================================================= */
+
+document.getElementById(
+  "countrySearch"
+).addEventListener(
+  "input",
+  renderCountries
+);
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+document.querySelectorAll(
+  ".faq button"
+).forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      const parent =
+        button.parentElement;
+
+      parent.classList.toggle("open");
+
+      const symbol =
+        button.querySelector("span");
+
+      symbol.textContent =
+        parent.classList.contains("open")
+          ? "−"
+          : "+";
+
+    }
+  );
+
+});
+
+/* =========================================================
+   FAQ SEARCH
+========================================================= */
+
+document.getElementById(
+  "faqSearch"
+).addEventListener(
+  "input",
+  function(){
+
+    const q =
+      this.value.toLowerCase().trim();
+
+    document.querySelectorAll(
+      ".faq"
+    ).forEach(faq => {
+
+      faq.style.display =
+        faq.textContent.toLowerCase().includes(q)
+          ? ""
+          : "none";
+
+    });
+
+  }
+);
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function applyTheme(){
+
+  document.body.classList.toggle(
+    "light",
+    state.theme === "light"
+  );
+
+  localStorage.setItem(
+    CONFIG.storage.theme,
+    state.theme
+  );
+
+}
+
+function toggleTheme(){
+
+  state.theme =
+    state.theme === "dark"
+      ? "light"
+      : "dark";
+
+  applyTheme();
+
+  toast(
+    "Theme changed",
+    state.theme === "light"
+      ? "Light mode enabled."
+      : "Dark mode enabled."
+  );
+
+}
+
+document.getElementById(
+  "themeBtn"
+).addEventListener(
+  "click",
+  toggleTheme
+);
+
+document.getElementById(
+  "sideTheme"
+).addEventListener(
+  "click",
+  toggleTheme
+);
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+const sidebar =
+  document.getElementById("sidebar");
+
+document.getElementById(
+  "menuBtn"
+).addEventListener(
+  "click",
+  () => {
+
+    sidebar.classList.toggle(
+      "open"
+    );
+
+  }
+);
+
+/* =========================================================
+   SECTION NAVIGATION
+========================================================= */
+
+function scrollToSection(id){
+
+  const element =
+    document.getElementById(id);
+
+  if(!element) return;
+
+  element.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+  sidebar.classList.remove("open");
+
+}
+
+document.querySelectorAll(
+  ".nav-item[data-section]"
+).forEach(item => {
+
+  item.addEventListener(
+    "click",
+    () => {
+
+      scrollToSection(
+        item.dataset.section
+      );
+
+    }
+  );
+
+});
+
+/* =========================================================
+   ACTIVE NAV
+========================================================= */
+
+const sections = [
+  "dashboard",
+  "matches",
+  "favorites",
+  "categories",
+  "membership",
+  "faq"
+];
+
+const sectionObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(!entry.isIntersecting)
+          return;
+
+        document.querySelectorAll(
+          ".nav-item[data-section]"
+        ).forEach(item => {
+
+          item.classList.toggle(
+            "active",
+            item.dataset.section === entry.target.id
+          );
+
+        });
+
+      });
+
+    },
+    {
+      rootMargin:"-30% 0px -55% 0px"
+    }
+  );
+
+sections.forEach(id => {
+
+  const el =
+    document.getElementById(id);
+
+  if(el)
+    sectionObserver.observe(el);
+
+});
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function openModal(id){
+
+  document.getElementById(
+    id
+  ).classList.add("show");
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+function closeModal(id){
+
+  document.getElementById(
+    id
+  ).classList.remove("show");
+
+  document.body.style.overflow =
+    "";
+
+}
+
+/* =========================================================
+   REGISTRATION
+========================================================= */
+
+function openRegistration(){
+
+  updateRegistrationCountry();
+
+  const saved =
+    JSON.parse(
+      localStorage.getItem(
+        CONFIG.storage.registration
+      ) || "{}"
+    );
+
+  if(saved.name)
+    document.getElementById(
+      "regName"
+    ).value = saved.name;
+
+  if(saved.phone)
+    document.getElementById(
+      "regPhone"
+    ).value = saved.phone;
+
+  if(saved.message)
+    document.getElementById(
+      "regMessage"
+    ).value = saved.message;
+
+  openModal(
+    "registrationModal"
+  );
+
+}
+
+function sendRegistration(){
+
+  const name =
+    document.getElementById(
+      "regName"
+    ).value.trim();
+
+  const phone =
+    document.getElementById(
+      "regPhone"
+    ).value.trim();
+
+  const country =
+    document.getElementById(
+      "regCountry"
+    ).value;
+
+  const message =
+    document.getElementById(
+      "regMessage"
+    ).value.trim();
+
+  if(!name){
+
+    toast(
+      "Name required",
+      "Please enter your name."
+    );
+
+    return;
+
+  }
+
+  if(!phone){
+
+    toast(
+      "Phone required",
+      "Please enter your phone number."
+    );
+
+    return;
+
+  }
+
+  const selected =
+    COUNTRIES.find(
+      c => c.name === country
+    );
+
+  localStorage.setItem(
+    CONFIG.storage.registration,
+    JSON.stringify({
+      name,
+      phone,
+      message
+    })
+  );
+
+  const whatsappMessage =
+`Hello ${CONFIG.brandName}.
+
+I would like to register for VIP membership.
+
+Name: ${name}
+Phone: ${phone}
+Country: ${country}
+Fee shown: ${selected.code} ${formatMoney(selected.fee)}
+
+Message:
+${message || "I would like registration information."}`;
+
+  window.open(
+    whatsappLink(whatsappMessage),
+    "_blank",
+    "noopener"
+  );
+
+  closeModal(
+    "registrationModal"
+  );
+
+}
+
+/* =========================================================
+   COPY FEE
+========================================================= */
+
+async function copySelectedFee(){
+
+  const country =
+    COUNTRIES.find(
+      c => c.name === state.country
+    );
+
+  const text =
+    `${country.name}: ${country.code} ${formatMoney(country.fee)}`;
+
+  try{
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+    toast(
+      "Copied",
+      text
+    );
+
+  }catch(e){
+
+    toast(
+      "Copy unavailable",
+      text
+    );
+
+  }
+
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(title,message){
+
+  const container =
+    document.getElementById(
+      "toastContainer"
+    );
+
+  const item =
+    document.createElement("div");
+
+  item.className =
+    "toast";
+
+  item.innerHTML = `
+
+    <div class="toast-icon">
+      ✓
+    </div>
+
+    <div>
+
+      <strong style="font-size:12px">
+        ${escapeHTML(title)}
+      </strong>
+
+      <p>
+        ${escapeHTML(message)}
+      </p>
+
+    </div>
+
+  `;
+
+  container.appendChild(item);
+
+  setTimeout(() => {
+
+    item.style.opacity = "0";
+    item.style.transform =
+      "translateX(20px)";
+
+    setTimeout(
+      () => item.remove(),
+      250
+    );
+
+  },3500);
+
+}
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+/* =========================================================
+   COMMAND PALETTE
+========================================================= */
+
+function openCommandPalette(){
+
+  document.getElementById(
+    "commandPalette"
+  ).classList.add("show");
+
+  document.body.style.overflow =
+    "hidden";
+
+  setTimeout(() => {
+
+    document.getElementById(
+      "commandInput"
+    ).focus();
+
+  },50);
+
+}
+
+function closeCommandPalette(){
+
+  document.getElementById(
+    "commandPalette"
+  ).classList.remove("show");
+
+  document.body.style.overflow =
+    "";
+
+}
+
+document.getElementById(
+  "openCommand"
+).addEventListener(
+  "click",
+  openCommandPalette
+);
+
+document.getElementById(
+  "commandInput"
+).addEventListener(
+  "input",
+  function(){
+
+    const q =
+      this.value.toLowerCase().trim();
+
+    const results =
+      document.getElementById(
+        "commandResults"
+      );
+
+    const matches =
+      MATCHES.filter(m =>
+        `${m.home} ${m.away} ${m.league}`
+          .toLowerCase()
+          .includes(q)
+      ).slice(0,7);
+
+    let html = `
+
+      <button
+        class="command-item"
+        onclick="scrollToSection('dashboard');closeCommandPalette()">
+        🏠 Dashboard
+      </button>
+
+      <button
+        class="command-item"
+        onclick="scrollToSection('matches');closeCommandPalette()">
+        ⚽ Match Center
+      </button>
+
+    `;
+
+    if(q){
+
+      html += matches.map(m => `
+
+        <button
+          class="command-item"
+          onclick="closeCommandPalette();openMatch(${m.id})">
+
+          ⚽
+          <span>
+            ${escapeHTML(m.home)}
+            vs
+            ${escapeHTML(m.away)}
+          </span>
+
+        </button>
+
+      `).join("");
+
+    }else{
+
+      html += `
+
+        <button
+          class="command-item"
+          onclick="scrollToSection('favorites');closeCommandPalette()">
+          ★ Favorites
+        </button>
+
+        <button
+          class="command-item"
+          onclick="scrollToSection('membership');closeCommandPalette()">
+          ♛ VIP Membership
+        </button>
+
+        <button
+          class="command-item"
+          onclick="scrollToSection('faq');closeCommandPalette()">
+          ? FAQ
+        </button>
+
+      `;
+
+    }
+
+    results.innerHTML = html;
+
+  }
+);
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  e => {
+
+    if(
+      (e.ctrlKey || e.metaKey) &&
+      e.key.toLowerCase() === "k"
+    ){
+
+      e.preventDefault();
+
+      openCommandPalette();
+
+    }
+
+    if(e.key === "Escape"){
+
+      closeCommandPalette();
+
+      document.querySelectorAll(
+        ".modal.show"
+      ).forEach(modal =>
+        closeModal(modal.id)
+      );
+
+    }
+
+  }
+);
+
+/* =========================================================
+   CLICK OUTSIDE MODALS
+========================================================= */
+
+document.querySelectorAll(
+  ".modal"
+).forEach(modal => {
+
+  modal.addEventListener(
+    "click",
+    e => {
+
+      if(e.target === modal)
+        closeModal(modal.id);
+
+    }
+  );
+
+});
+
+document.getElementById(
+  "commandPalette"
+).addEventListener(
+  "click",
+  e => {
+
+    if(
+      e.target.id ===
+      "commandPalette"
+    ){
+
+      closeCommandPalette();
+
+    }
+
+  }
+);
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+document.getElementById(
+  "notificationBtn"
+).addEventListener(
+  "click",
+  () => {
+
+    toast(
+      "Demo mode",
+      "Notifications are currently informational only."
+    );
+
+  }
+);
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+const backTop =
+  document.getElementById(
+    "backTop"
+  );
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    backTop.classList.toggle(
+      "show",
+      window.scrollY > 500
+    );
+
+  }
+);
+
+backTop.addEventListener(
+  "click",
+  () => {
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  }
+);
+
+/* =========================================================
+   REVEAL ANIMATIONS
+========================================================= */
+
+const revealObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add(
+            "visible"
+          );
+
+          revealObserver.unobserve(
+            entry.target
+          );
+
+        }
+
+      });
+
+    },
+    {
+      threshold:.08
+    }
+  );
+
+function observeReveal(){
+
+  document.querySelectorAll(
+    ".reveal"
+  ).forEach(el =>
+    revealObserver.observe(el)
+  );
+
+}
+
+/* =========================================================
+   COUNTERS
+========================================================= */
+
+function animateCounters(){
+
+  document.querySelectorAll(
+    "[data-count]"
+  ).forEach(el => {
+
+    const target =
+      Number(el.dataset.count);
+
+    let current = 0;
+
+    const increment =
+      Math.max(
+        1,
+        Math.ceil(target / 30)
+      );
+
+    const timer =
+      setInterval(() => {
+
+        current += increment;
+
+        if(current >= target){
+
+          current = target;
+
+          clearInterval(timer);
+
+        }
+
+        el.textContent =
+          current.toLocaleString();
+
+      },35);
+
+  });
+
+}
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById(
+  "year"
+).textContent =
+  new Date().getFullYear();
+
+/* =========================================================
+   LAST UPDATED
+========================================================= */
+
+document.getElementById(
+  "lastUpdated"
+).textContent =
+  "Local interface loaded " +
+  new Date().toLocaleTimeString(
+    [],
+    {
+      hour:"2-digit",
+      minute:"2-digit"
+    }
+  );
+
+/* =========================================================
+   ONLINE / OFFLINE
+========================================================= */
+
+window.addEventListener(
+  "offline",
+  () => {
+
+    toast(
+      "Offline",
+      "Your browser is currently offline. Local features still work."
+    );
+
+  }
+);
+
+window.addEventListener(
+  "online",
+  () => {
+
+    toast(
+      "Online",
+      "Connection restored."
+    );
+
+  }
+);
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+function init(){
+
+  applyTheme();
+
+  renderCountries();
+
+  updateCountryCard();
+
+  updateRegistrationCountry();
+
+  updateWhatsApp();
+
+  renderMatches();
+
+  renderFavorites();
+
+  updateFavoriteCount();
+
+  observeReveal();
+
+  animateCounters();
+
+}
+
+init();
+
+</script>
+
+</body>
+</html>
